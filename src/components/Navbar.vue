@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-bgcolor">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">我的部落格</a>
+      <router-link class="navbar-brand nav-link" to="/">
+        Kazo的部落格
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
