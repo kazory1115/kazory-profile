@@ -30,7 +30,7 @@ const posts = ref([]);
 onMounted(async () => {
   // 用了 await，記得把 onMounted 的回呼函式標記成 async
   try {
-    const response = await axios.get('http://127.0.0.1/api/posts');
+    const response = await axios.get('http://127.0.0.1/api/kazo/blog/posts');
     posts.value = response.data.data;
   } catch (error) {
     console.error('錯誤:', error);

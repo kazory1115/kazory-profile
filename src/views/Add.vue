@@ -54,7 +54,7 @@ async function submit() {
   // 將內容印出到開發者控制台
   console.log('輸出內容:', html);
   try {
-    const response = await axios.post('http://127.0.0.1/api/posts', {
+    const response = await axios.post('http://127.0.0.1/api/kazo/blog/posts', {
       title: dbtitle,
       content: html,
     });

@@ -30,9 +30,10 @@
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{ name: 'Post', params: { id: 1 } }"
+              :class="{ active: $route.path === '/add' }"
+              to="/add"
             >
-              文章
+              新增文章
             </router-link>
           </li>
           <li class="nav-item">
