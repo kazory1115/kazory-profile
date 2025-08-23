@@ -1,46 +1,38 @@
 <template>
-  <div class="container mt-4">
-    <h2>最新文章</h2>
-    <div class="row">
-      <div class="col-md-4" v-for="post in posts" :key="post.id">
-        <div class="card mb-3">
-          <!-- d-flex flex-column 讓子項目垂直排列 -->
-          <div class="card-body d-flex flex-column" style="height: 200px">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.summary + ' ...' }}</p>
-            <router-link
-              class="btn btn-primary mt-auto"
-              :to="`/post/${post.id}`"
-              >閱讀更多</router-link
-            >
+  <div class="relative bg-gray-100 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="relative z-10 pb-8 bg-gray-100 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+        <svg class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-gray-100 transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <polygon points="50,0 100,0 50,100 0,100" />
+        </svg>
+
+        <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+          <div class="sm:text-center lg:text-left">
+            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+              <span class="block xl:inline">歡迎來到我的作品集</span>
+              <span class="block text-indigo-600 xl:inline">我是一位充滿熱情的網頁開發者，專注於打造使用者友善且功能強大的應用程式。</span>
+            </h1>
+            <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+              探索我的專案，了解我的技能和經驗，並與我聯繫以討論潛在的合作機會。
+            </p>
+            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+              <div class="rounded-md shadow">
+                <router-link to="/project" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                  查看我的專案
+                </router-link>
+              </div>
+              <div class="mt-3 sm:mt-0 sm:ml-3">
+                <router-link to="/contact" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
+                  聯絡我
+                </router-link>
+              </div>
+            </div>
           </div>
-        </div>
+        </main>
       </div>
+    </div>
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+      <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://picsum.photos/seed/homepage/1920/1080" alt="">
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-
-// 用來儲存後端取得的資料
-const posts = ref([]);
-// 當元件掛載完成後執行（onMounted 是 Vue 的生命週期函式）
-onMounted(async () => {
-  // 用了 await，記得把 onMounted 的回呼函式標記成 async
-  try {
-    const response = await axios.get('http://127.0.0.1/api/kazo/blog/posts');
-    posts.value = response.data.data;
-  } catch (error) {
-    console.error('錯誤:', error);
-    Swal.fire({
-      title: '系統訊息',
-      text: '讀取失敗',
-      icon: 'error',
-      timer: 1000,
-      showConfirmButton: false, // Hide the OK button
-    });
-  }
-});
-</script>

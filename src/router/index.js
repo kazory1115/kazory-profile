@@ -1,18 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import Post from '../views/Post.vue';
 import About from '../views/About.vue';
-import Add from '../views/Add.vue';
+import Project from '../views/Project.vue';
+import Contact from '../views/Contact.vue';
+import ProjectDetail from '../views/ProjectDetail.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/post/:id', name: 'Post', component: Post },
   { path: '/about', name: 'About', component: About },
-  { path: '/add', name: 'add', component: Add },
+  { path: '/project', name: 'Project', component: Project },
+  { path: '/project/:id', name: 'ProjectDetail', component: ProjectDetail },
+  { path: '/contact', name: 'Contact', component: Contact },
 ];
 
 const router = createRouter({
-  history: createWebHistory('/kazo/'),
+  history: createWebHistory('/kazo'),
   routes,
 });
 
