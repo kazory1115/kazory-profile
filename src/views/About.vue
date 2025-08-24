@@ -86,6 +86,38 @@
               </div>
             </div>
           </div>
+          <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl mt-12">
+            <h2 class="text-3xl font-bold text-white mb-6">能力等級</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div
+                v-for="(skill, index) in skillLevels"
+                :key="index"
+                class="bg-gray-700 p-4 rounded-lg shadow-md flex items-center transform hover:scale-105 transition-transform duration-300"
+              >
+                <div class="flex-shrink-0 mr-4">
+                  <font-awesome-icon
+                    :icon="
+                      skill.status === 'mastered'
+                        ? ['fas', 'check-circle']
+                        : skill.status === 'familiar'
+                        ? ['fas', 'star-half-alt']
+                        : skill.status === 'learning'
+                        ? ['fas', 'hourglass-half']
+                        : ['fas', 'question-circle']
+                    "
+                    class="text-2xl"
+                    :class="skill.color"
+                  />
+                </div>
+                <div>
+                  <p class="text-lg font-medium text-gray-200">
+                    {{ skill.name }}
+                  </p>
+                  <p class="text-sm text-gray-400">{{ skill.level }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -96,9 +128,9 @@
 import { ref } from 'vue';
 
 const name = ref('Su Jain wei');
-const jobTitle = ref('網頁開發者');
+const jobTitle = ref('後端工程師（偏架構/資料流程）');
 const yearsOfExperience = ref('1.5年資');
-const avatarUrl = ref('https://picsum.photos/seed/avatar/300/300');
+const avatarUrl = ref('./images/avatar.png');
 const emailLabel = ref('Email');
 const email = ref('your.email@example.com');
 const phoneLabel = ref('電話');
@@ -107,12 +139,74 @@ const cvButtonText = ref('下載履歷');
 const cvUrl = ref('#'); // Replace with your CV URL
 const aboutMeTitle = ref('關於我');
 const aboutMeParagraphs = ref([
-  '我是一名充滿熱情的網頁開發人員，擁有 ' +
-    yearsOfExperience.value +
-    ' 年的經驗。我專注於使用 Vue.js、React 和 Node.js 等現代技術來建構高效能的 Web 應用程式。',
-  '我熱衷於學習新技術，並將其應用於解決實際問題。我相信，一個好的產品不僅要有強大的功能，還要有良好的使用者體驗。',
+  '我是一名充滿熱情的網頁開發人員，專注於後端核心技術 (PHP, Laravel, CodeIgniter)、資料庫設計與管理 (MySQL/MariaDB)、前端開發 (Vue 3, Vite, RWD)、以及 DevOps (Docker) 等領域。',
+  '我擅長處理批次資料、自動化腳本，並注重程式品質與錯誤處理。我熱衷於學習新技術，並將其應用於解決實際問題，致力於打造高效能且使用者體驗良好的應用程式。',
 ]);
 const skillsTitle = ref('我的技能');
+
+const skillLevels = ref([
+  {
+    name: 'PHP / SQL',
+    level: '✅',
+    status: 'mastered',
+    color: 'text-green-500',
+  },
+  {
+    name: 'Laravel 12',
+    level: '🧩→✅',
+    status: 'familiar',
+    color: 'text-blue-400',
+  },
+  {
+    name: 'CodeIgniter 4',
+    level: '✅',
+    status: 'mastered',
+    color: 'text-green-500',
+  },
+  {
+    name: '資料庫設計/效能',
+    level: '🧩→✅',
+    status: 'familiar',
+    color: 'text-blue-400',
+  },
+  {
+    name: '資料同步/批次處理',
+    level: '✅',
+    status: 'mastered',
+    color: 'text-green-500',
+  },
+  {
+    name: 'Vue 3 + Vite（前端）',
+    level: '🧩',
+    status: 'familiar',
+    color: 'text-blue-400',
+  },
+  {
+    name: 'Docker（本機）',
+    level: '🧩',
+    status: 'familiar',
+    color: 'text-blue-400',
+  },
+  {
+    name: 'PDF 解析（Python）',
+    level: '🧩',
+    status: 'familiar',
+    color: 'text-blue-400',
+  },
+  {
+    name: '日誌/監控/可觀測性',
+    level: '🌱',
+    status: 'learning',
+    color: 'text-yellow-500',
+  },
+  { name: 'CI/CD', level: '🌱', status: 'learning', color: 'text-yellow-500' },
+  {
+    name: '事件/佇列/非同步',
+    level: '🌱',
+    status: 'learning',
+    color: 'text-yellow-500',
+  },
+]);
 
 const socials = ref([
   { name: 'GitHub', url: '#', icon: ['fab', 'github'] },
@@ -125,35 +219,59 @@ const skills = ref([
     name: '前端',
     items: [
       { name: 'Vue.js', icon: ['fab', 'vuejs'], color: 'text-green-500' },
-      { name: 'React', icon: ['fab', 'react'], color: 'text-blue-500' },
+      { name: 'HTML/CSS', icon: ['fab', 'html5'], color: 'text-orange-500' },
       {
         name: 'JavaScript',
         icon: ['fab', 'js-square'],
         color: 'text-yellow-500',
       },
-      { name: 'HTML5', icon: ['fab', 'html5'], color: 'text-orange-500' },
-      { name: 'CSS3', icon: ['fab', 'css3-alt'], color: 'text-blue-500' },
+      { name: 'RWD', icon: ['fas', 'mobile-alt'], color: 'text-blue-500' },
+      {
+        name: 'Tailwind CSS',
+        icon: ['fab', 'css3-alt'],
+        color: 'text-blue-500',
+      },
     ],
   },
   {
     name: '後端',
     items: [
-      { name: 'Node.js', icon: ['fab', 'node-js'], color: 'text-green-500' },
+      { name: 'PHP', icon: ['fab', 'php'], color: 'text-indigo-500' },
       { name: 'Laravel', icon: ['fab', 'laravel'], color: 'text-red-500' },
+      { name: 'CodeIgniter', icon: ['fas', 'code'], color: 'text-gray-500' },
+      { name: 'Node.js', icon: ['fab', 'node-js'], color: 'text-green-500' },
+      { name: 'MVC', icon: ['fas', 'cogs'], color: 'text-gray-500' },
     ],
   },
   {
     name: '資料庫',
     items: [
-      { name: 'MySQL', icon: ['fas', 'database'], color: 'text-gray-500' },
-      { name: 'MongoDB', icon: ['fas', 'database'], color: 'text-green-500' },
+      {
+        name: 'MySQL/MariaDB',
+        icon: ['fas', 'database'],
+        color: 'text-gray-500',
+      },
+      { name: 'SQL', icon: ['fas', 'database'], color: 'text-blue-500' },
+      {
+        name: 'Schema 設計',
+        icon: ['fas', 'project-diagram'],
+        color: 'text-purple-500',
+      },
+      { name: '索引優化', icon: ['fas', 'search'], color: 'text-yellow-500' },
     ],
   },
   {
     name: '其他',
     items: [
-      { name: 'Git', icon: ['fab', 'git-alt'], color: 'text-red-500' },
       { name: 'Docker', icon: ['fab', 'docker'], color: 'text-blue-500' },
+      { name: 'Git', icon: ['fab', 'git-alt'], color: 'text-red-500' },
+      { name: 'DevOps', icon: ['fas', 'cloud'], color: 'text-cyan-500' },
+      { name: '錯誤處理', icon: ['fas', 'bug'], color: 'text-red-500' },
+      {
+        name: '效能優化',
+        icon: ['fas', 'tachometer-alt'],
+        color: 'text-green-500',
+      },
     ],
   },
 ]);

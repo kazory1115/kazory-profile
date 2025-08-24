@@ -11,6 +11,18 @@ import {
   faEdit,
   faDatabase,
   faFileAlt,
+  faMobileAlt,
+  faCode,
+  faProjectDiagram,
+  faSearch,
+  faCloud,
+  faBug,
+  faTachometerAlt,
+  faCogs,
+  faCheckCircle,
+  faStarHalfAlt,
+  faHourglassHalf,
+  faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faVuejs,
@@ -25,6 +37,7 @@ import {
   faDocker,
   faGithub,
   faLinkedin,
+  faPhp,
 } from '@fortawesome/free-brands-svg-icons';
 
 import Particles from "@tsparticles/vue3";
@@ -38,6 +51,18 @@ library.add(
   faEdit,
   faDatabase,
   faFileAlt,
+  faMobileAlt,
+  faCode,
+  faProjectDiagram,
+  faSearch,
+  faCloud,
+  faBug,
+  faTachometerAlt,
+  faCogs,
+  faCheckCircle,
+  faStarHalfAlt,
+  faHourglassHalf,
+  faQuestionCircle,
   faVuejs,
   faReact,
   faJsSquare,
@@ -49,7 +74,8 @@ library.add(
   faGitAlt,
   faDocker,
   faGithub,
-  faLinkedin
+  faLinkedin,
+  faPhp
 );
 
 /**
