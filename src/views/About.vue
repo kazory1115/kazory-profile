@@ -1,106 +1,88 @@
 <template>
-  <div class="bg-white">
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div class="lg:grid lg:grid-cols-3 lg:gap-8">
-        <div class="lg:col-span-1">
-          <div class="px-4 sm:px-0">
-            <h2 class="text-3xl font-extrabold text-gray-900">關於我</h2>
-            <div class="mt-4">
-              <img class="h-48 w-48 rounded-full mx-auto" src="https://picsum.photos/seed/avatar/300/300" alt="Your Name">
-              <h3 class="mt-6 text-xl font-semibold text-gray-900 text-center">[你的名字]</h3>
-              <p class="mt-1 text-base text-gray-500 text-center">網頁開發者</p>
+  <div class="bg-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-1 lg:sticky top-16 self-start">
+          <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl text-center">
+            <img
+              class="w-48 h-48 rounded-full mx-auto mb-6 shadow-lg border-4 border-gray-700"
+              :src="avatarUrl"
+              alt="Your Name"
+            />
+            <h1 class="text-4xl font-extrabold text-white">{{ name }}</h1>
+            <p class="text-xl text-blue-400 mt-2 mb-6">{{ jobTitle }}</p>
+            <div class="flex justify-center space-x-4 mb-6">
+              <a
+                v-for="social in socials"
+                :key="social.name"
+                :href="social.url"
+                target="_blank"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <font-awesome-icon :icon="social.icon" class="text-2xl" />
+              </a>
+            </div>
+            <div class="text-left space-y-4">
+              <div>
+                <h3 class="text-lg font-semibold text-blue-400">
+                  {{ emailLabel }}
+                </h3>
+                <p class="text-gray-300">{{ email }}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-blue-400">
+                  {{ phoneLabel }}
+                </h3>
+                <p class="text-gray-300">{{ phone }}</p>
+              </div>
+            </div>
+            <div class="mt-8">
+              <a
+                :href="cvUrl"
+                target="_blank"
+                class="inline-block w-full px-6 py-3 bg-blue-600 rounded-full text-lg font-semibold text-white hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                {{ cvButtonText }}
+              </a>
             </div>
           </div>
         </div>
-        <div class="mt-12 lg:mt-0 lg:col-span-2">
-          <div class="prose prose-indigo prose-lg text-gray-500 mx-auto">
-            <p>我是一名充滿熱情的網頁開發人員，擁有 [年資] 年的經驗。我專注於使用 Vue.js、React 和 Node.js 等現代技術來建構高效能的 Web 應用程式。</p>
-            <p>我熱衷於學習新技術，並將其應用於解決實際問題。我相信，一個好的產品不僅要有強大的功能，還要有良好的使用者體驗。</p>
+        <div class="lg:col-span-2">
+          <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl mb-12">
+            <h2 class="text-3xl font-bold text-white mb-4">
+              {{ aboutMeTitle }}
+            </h2>
+            <div class="prose prose-lg max-w-none text-gray-300 prose-invert">
+              <p v-for="(paragraph, index) in aboutMeParagraphs" :key="index">
+                {{ paragraph }}
+              </p>
+            </div>
           </div>
-          <div class="mt-10">
-            <h3 class="text-lg font-medium text-gray-900">我的技能</h3>
-            <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-              <div>
-                <h4 class="text-base font-medium text-gray-900">前端</h4>
-                <ul class="mt-4 space-y-4">
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'vuejs']" class="text-2xl text-green-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">Vue.js</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'react']" class="text-2xl text-blue-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">React</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'js-square']" class="text-2xl text-yellow-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">JavaScript</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'html5']" class="text-2xl text-orange-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">HTML5</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'css3-alt']" class="text-2xl text-blue-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">CSS3</p>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="text-base font-medium text-gray-900">後端</h4>
-                <ul class="mt-4 space-y-4">
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'node-js']" class="text-2xl text-green-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">Node.js</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'laravel']" class="text-2xl text-red-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">Laravel</p>
-                  </li>
-                </ul>
-                <h4 class="mt-8 text-base font-medium text-gray-900">資料庫</h4>
-                <ul class="mt-4 space-y-4">
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fas', 'database']" class="text-2xl text-gray-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">MySQL</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fas', 'database']" class="text-2xl text-green-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">MongoDB</p>
-                  </li>
-                </ul>
-                <h4 class="mt-8 text-base font-medium text-gray-900">其他</h4>
-                <ul class="mt-4 space-y-4">
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'git-alt']" class="text-2xl text-red-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">Git</p>
-                  </li>
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0">
-                      <font-awesome-icon :icon="['fab', 'docker']" class="text-2xl text-blue-500" />
-                    </div>
-                    <p class="ml-3 text-base text-gray-500">Docker</p>
-                  </li>
-                </ul>
+          <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl font-bold text-white mb-6">
+              {{ skillsTitle }}
+            </h2>
+            <div class="space-y-6">
+              <div v-for="category in skills" :key="category.name">
+                <h3 class="text-xl font-semibold text-blue-400 mb-3">
+                  {{ category.name }}
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                  <div
+                    v-for="skill in category.items"
+                    :key="skill.name"
+                    class="flex items-center bg-gray-700 px-4 py-2 rounded-full"
+                  >
+                    <font-awesome-icon
+                      :icon="skill.icon"
+                      class="text-lg"
+                      :class="skill.color"
+                    />
+                    <span class="ml-3 text-base text-gray-200">{{
+                      skill.name
+                    }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -111,4 +93,68 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const name = ref('Su Jain wei');
+const jobTitle = ref('網頁開發者');
+const yearsOfExperience = ref('1.5年資');
+const avatarUrl = ref('https://picsum.photos/seed/avatar/300/300');
+const emailLabel = ref('Email');
+const email = ref('your.email@example.com');
+const phoneLabel = ref('電話');
+const phone = ref('0912-345-678');
+const cvButtonText = ref('下載履歷');
+const cvUrl = ref('#'); // Replace with your CV URL
+const aboutMeTitle = ref('關於我');
+const aboutMeParagraphs = ref([
+  '我是一名充滿熱情的網頁開發人員，擁有 ' +
+    yearsOfExperience.value +
+    ' 年的經驗。我專注於使用 Vue.js、React 和 Node.js 等現代技術來建構高效能的 Web 應用程式。',
+  '我熱衷於學習新技術，並將其應用於解決實際問題。我相信，一個好的產品不僅要有強大的功能，還要有良好的使用者體驗。',
+]);
+const skillsTitle = ref('我的技能');
+
+const socials = ref([
+  { name: 'GitHub', url: '#', icon: ['fab', 'github'] },
+  { name: 'LinkedIn', url: '#', icon: ['fab', 'linkedin'] },
+  { name: '104', url: '#', icon: ['fas', 'file-alt'] },
+]);
+
+const skills = ref([
+  {
+    name: '前端',
+    items: [
+      { name: 'Vue.js', icon: ['fab', 'vuejs'], color: 'text-green-500' },
+      { name: 'React', icon: ['fab', 'react'], color: 'text-blue-500' },
+      {
+        name: 'JavaScript',
+        icon: ['fab', 'js-square'],
+        color: 'text-yellow-500',
+      },
+      { name: 'HTML5', icon: ['fab', 'html5'], color: 'text-orange-500' },
+      { name: 'CSS3', icon: ['fab', 'css3-alt'], color: 'text-blue-500' },
+    ],
+  },
+  {
+    name: '後端',
+    items: [
+      { name: 'Node.js', icon: ['fab', 'node-js'], color: 'text-green-500' },
+      { name: 'Laravel', icon: ['fab', 'laravel'], color: 'text-red-500' },
+    ],
+  },
+  {
+    name: '資料庫',
+    items: [
+      { name: 'MySQL', icon: ['fas', 'database'], color: 'text-gray-500' },
+      { name: 'MongoDB', icon: ['fas', 'database'], color: 'text-green-500' },
+    ],
+  },
+  {
+    name: '其他',
+    items: [
+      { name: 'Git', icon: ['fab', 'git-alt'], color: 'text-red-500' },
+      { name: 'Docker', icon: ['fab', 'docker'], color: 'text-blue-500' },
+    ],
+  },
+]);
 </script>

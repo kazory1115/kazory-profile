@@ -10,6 +10,7 @@ import {
   faTrash,
   faEdit,
   faDatabase,
+  faFileAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faVuejs,
@@ -22,7 +23,12 @@ import {
   faLaravel,
   faGitAlt,
   faDocker,
+  faGithub,
+  faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
+
+import Particles from "@tsparticles/vue3";
+import { loadFull } from "tsparticles";
 
 const app = createApp(App);
 
@@ -31,6 +37,7 @@ library.add(
   faTrash,
   faEdit,
   faDatabase,
+  faFileAlt,
   faVuejs,
   faReact,
   faJsSquare,
@@ -40,11 +47,10 @@ library.add(
   faNodeJs,
   faLaravel,
   faGitAlt,
-  faDocker
+  faDocker,
+  faGithub,
+  faLinkedin
 );
-
-// 全域物件
-// app.component('tags-input', TagsInput);
 
 /**
  * 載入路由
@@ -53,6 +59,13 @@ app.use(router);
 
 //fontawesome
 app.component('font-awesome-icon', FontAwesomeIcon);
+
+//tsparticles
+app.use(Particles, {
+  init: async (engine) => {
+    await loadFull(engine);
+  },
+});
 
 // 載入主檔案
 app.mount('#app');

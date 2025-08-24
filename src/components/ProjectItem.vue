@@ -1,19 +1,14 @@
 <template>
-  <div class="group relative">
-    <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-      <img :src="project.imageUrl" :alt="project.title" class="w-full h-full object-center object-cover lg:w-full lg:h-full" />
-    </div>
-    <div class="mt-4 flex justify-between">
-      <div>
-        <h3 class="text-sm text-gray-700">
-          <router-link :to="{ name: 'ProjectDetail', params: { id: project.id } }">
-            <span aria-hidden="true" class="absolute inset-0"></span>
-            {{ project.title }}
-          </router-link>
-        </h3>
-        <p class="mt-1 text-sm text-gray-500">{{ project.summary }}</p>
+  <div class="group relative bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300">
+    <router-link :to="{ name: 'ProjectDetail', params: { id: project.id } }">
+      <div class="w-full h-48 bg-gray-700 overflow-hidden">
+        <img :src="project.imageUrl" :alt="project.title" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
       </div>
-    </div>
+      <div class="p-6">
+        <h3 class="text-xl font-semibold text-white">{{ project.title }}</h3>
+        <p class="mt-2 text-gray-400">{{ project.summary }}</p>
+      </div>
+    </router-link>
   </div>
 </template>
 

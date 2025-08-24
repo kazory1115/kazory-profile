@@ -1,25 +1,85 @@
 <template>
-  <div class="bg-white">
-    <div v-if="project" class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-      <div class="lg:grid lg:grid-cols-2 lg:gap-x-8">
-        <div class="lg:col-span-1">
-          <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden">
-            <img :src="project.imageUrl" :alt="project.title" class="w-full h-full object-center object-cover">
+  <div class="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div v-if="project" class="container mx-auto">
+      <div class="mb-8">
+        <router-link
+          to="/project"
+          class="inline-flex items-center text-gray-400 hover:text-white"
+        >
+          <svg
+            class="-ml-1 mr-2 h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          返回專案列表
+        </router-link>
+      </div>
+      <div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+        <div class="p-8 md:p-12">
+          <h1 class="text-5xl font-extrabold text-white mb-4">
+            {{ project.title }}
+          </h1>
+          <p class="text-xl text-gray-400 mb-8">{{ project.description }}</p>
+
+          <div class="prose prose-lg max-w-none prose-invert">
+            <p>{{ project.longDescription }}</p>
           </div>
-        </div>
-        <div class="mt-10 lg:mt-0 lg:col-span-1">
-          <h1 class="text-3xl font-extrabold text-gray-900">{{ project.title }}</h1>
-          <div class="mt-3">
-            <p class="text-lg text-gray-500">{{ project.description }}</p>
+
+          <div class="mt-12">
+            <h2 class="text-3xl font-bold text-white mb-4">技術棧</h2>
+            <div class="flex flex-wrap">
+              <span
+                v-for="tech in project.technologies"
+                :key="tech"
+                class="bg-gray-700 text-gray-300 text-base font-medium mr-3 mb-3 px-4 py-2 rounded-full"
+                >{{ tech }}</span
+              >
+            </div>
           </div>
-          <div class="mt-6">
-            <a :href="project.link" target="_blank" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"> 查看專案 </a>
+
+          <div class="mt-12 text-center">
+            <a
+              :href="project.link"
+              target="_blank"
+              class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 shadow-lg transform hover:scale-105 transition-transform duration-300"
+            >
+              訪問網站
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div v-else class="text-center py-24">
-      <p class="text-lg text-gray-500">正在載入專案...</p>
+    <div v-else class="flex items-center justify-center h-screen">
+      <div class="text-center">
+        <svg
+          class="animate-spin h-10 w-10 text-blue-500 mx-auto mb-4"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <p class="text-xl text-gray-500">正在載入專案...</p>
+      </div>
     </div>
   </div>
 </template>
@@ -33,13 +93,37 @@ const project = ref(null);
 
 // In a real application, you would fetch the project data from an API
 const projects = [
-  { id: 1, title: '專案一', description: '這是專案一的詳細描述。此專案的目標是...', imageUrl: 'https://picsum.photos/seed/project-detail-1/800/400', link: '#' },
-  { id: 2, title: '專案二', description: '這是專案二的詳細描述。此專案解決了...', imageUrl: 'https://picsum.photos/seed/project-detail-2/800/400', link: '#' },
-  { id: 3, title: '專案三', description: '這是專案三的詳細描述。此專案使用了...', imageUrl: 'https://picsum.photos/seed/project-detail-3/800/400', link: '#' },
+  {
+    id: 1,
+    title: '專案一',
+    description: '這是專案一的詳細描述。此專案的目標是...',
+    link: '#',
+    longDescription:
+      '這是一個更長更詳細的專案描述，介紹了專案的背景、目標、挑戰和最終成果。',
+    technologies: ['Vue.js', 'Tailwind CSS', 'Laravel', 'MySQL'],
+  },
+  {
+    id: 2,
+    title: '專案二',
+    description: '這是專案二的詳細描述。此專案解決了...',
+    link: '#',
+    longDescription:
+      '這是一個更長更詳細的專案描述，介紹了專案的背景、目標、挑戰和最終成果。',
+    technologies: ['React', 'Node.js', 'Express', 'MongoDB'],
+  },
+  {
+    id: 3,
+    title: '專案三',
+    description: '這是專案三的詳細描述。此專案使用了...',
+    link: '#',
+    longDescription:
+      '這是一個更長更詳細的專案描述，介紹了專案的背景、目標、挑戰和最終成果。',
+    technologies: ['Angular', 'Firebase', 'Google Cloud'],
+  },
 ];
 
 onMounted(() => {
   const projectId = parseInt(route.params.id);
-  project.value = projects.find(p => p.id === projectId);
+  project.value = projects.find((p) => p.id === projectId);
 });
 </script>

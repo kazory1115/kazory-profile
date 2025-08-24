@@ -1,49 +1,33 @@
 <template>
-  <div class="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
-    <div class="relative max-w-xl mx-auto">
-      <svg class="absolute left-full transform translate-x-1/2" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-        <defs>
-          <pattern id="85737c0e-0916-41d7-917f-596dc77fa283" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-          </pattern>
-        </defs>
-        <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc77fa283)" />
-      </svg>
-      <svg class="absolute right-full bottom-0 transform -translate-x-1/2" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-        <defs>
-          <pattern id="85737c0e-0916-41d7-917f-596dc77fa283" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-          </pattern>
-        </defs>
-        <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc77fa283)" />
-      </svg>
+  <div class="min-h-screen bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full space-y-8">
       <div class="text-center">
-        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">聯絡我</h2>
-        <p class="mt-4 text-lg leading-6 text-gray-500">如果您有任何問題或合作機會，歡迎隨時與我聯繫。</p>
+        <h2 class="text-4xl font-extrabold text-white">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-300">聯絡我</span>
+        </h2>
+        <p class="mt-4 text-lg text-gray-400">有任何問題或合作機會？歡迎隨時與我聯繫！</p>
       </div>
-      <div class="mt-12">
-        <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-          <div class="sm:col-span-2">
-            <label for="name" class="block text-sm font-medium text-gray-700">姓名</label>
-            <div class="mt-1">
-              <input type="text" v-model="form.name" name="name" id="name" autocomplete="name" required class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-            </div>
+      <div class="bg-gray-800 shadow-2xl rounded-2xl p-8 space-y-6 transform hover:scale-105 transition-transform duration-500">
+        <form @submit.prevent="submitForm" class="space-y-6">
+          <div>
+            <label for="name" class="text-sm font-medium text-gray-400">姓名</label>
+            <input type="text" v-model="form.name" name="name" id="name" autocomplete="name" required 
+                   class="mt-1 block w-full px-4 py-3 bg-gray-700 border-transparent rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 focus:bg-gray-600">
           </div>
-          <div class="sm:col-span-2">
-            <label for="email" class="block text-sm font-medium text-gray-700">電子郵件</label>
-            <div class="mt-1">
-              <input id="email" v-model="form.email" name="email" type="email" autocomplete="email" required class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-            </div>
+          <div>
+            <label for="email" class="text-sm font-medium text-gray-400">電子郵件</label>
+            <input id="email" v-model="form.email" name="email" type="email" autocomplete="email" required 
+                   class="mt-1 block w-full px-4 py-3 bg-gray-700 border-transparent rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 focus:bg-gray-600">
           </div>
-          <div class="sm:col-span-2">
-            <label for="message" class="block text-sm font-medium text-gray-700">訊息</label>
-            <div class="mt-1">
-              <textarea id="message" v-model="form.message" name="message" rows="4" required class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"></textarea>
-            </div>
+          <div>
+            <label for="message" class="text-sm font-medium text-gray-400">訊息</label>
+            <textarea id="message" v-model="form.message" name="message" rows="5" required 
+                      class="mt-1 block w-full px-4 py-3 bg-gray-700 border-transparent rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 focus:bg-gray-600"></textarea>
           </div>
-          <div class="sm:col-span-2">
-            <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              送出
+          <div>
+            <button type="submit" 
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-105 transition-transform duration-300">
+              送出訊息
             </button>
           </div>
         </form>
