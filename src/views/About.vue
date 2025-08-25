@@ -128,18 +128,17 @@
 import { ref } from 'vue';
 
 const name = ref('Su Jain wei');
-const jobTitle = ref('後端工程師（偏架構/資料流程）');
-const yearsOfExperience = ref('1.5年資');
+const jobTitle = ref('後端工程師');
 const avatarUrl = ref('./images/avatar.png');
 const emailLabel = ref('Email');
-const email = ref('your.email@example.com');
+const email = ref('jay86888688@gmail.com');
 const phoneLabel = ref('電話');
-const phone = ref('0912-345-678');
+const phone = ref('0930-118-867');
 const cvButtonText = ref('下載履歷');
 const cvUrl = ref('#'); // Replace with your CV URL
 const aboutMeTitle = ref('關於我');
 const aboutMeParagraphs = ref([
-  '我是一名充滿熱情的網頁開發人員，專注於後端核心技術 (PHP, Laravel, CodeIgniter)、資料庫設計與管理 (MySQL/MariaDB)、前端開發 (Vue 3, Vite, RWD)、以及 DevOps (Docker) 等領域。',
+  '我是一名充滿熱情的網頁開發人員，目前擁有1.5年資並專注於後端核心技術 (PHP, Laravel, CodeIgniter)、資料庫設計與管理 (MySQL/MariaDB)、前端開發 (Vue 3, Vite, RWD)、以及 DevOps (Docker) 等領域。',
   '我擅長處理批次資料、自動化腳本，並注重程式品質與錯誤處理。我熱衷於學習新技術，並將其應用於解決實際問題，致力於打造高效能且使用者體驗良好的應用程式。',
 ]);
 const skillsTitle = ref('我的技能');
