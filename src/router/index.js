@@ -14,7 +14,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/kazory-profile'),
+  history: createWebHashHistory('/kazory-profile'), // 改成 hash 模式
   routes,
 });
 
