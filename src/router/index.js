@@ -14,7 +14,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/kazo'),
+  history: createWebHistory('/kazory-profile'),
   routes,
 });
 
