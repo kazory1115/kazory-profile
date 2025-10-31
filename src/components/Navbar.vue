@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <router-link to="/" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors">
-            我的作品集
+            蘇建維的作品集
           </router-link>
         </div>
         <div class="hidden md:block">

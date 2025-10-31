@@ -23,6 +23,17 @@ import {
   faStarHalfAlt,
   faHourglassHalf,
   faQuestionCircle,
+  faBolt,
+  faServer,
+  faRocket,
+  faLightbulb,
+  faCheckDouble,
+  faShieldAlt,
+  faUsers,
+  faBriefcase,
+  faGraduationCap,
+  faUserCheck,
+  faVial
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faVuejs,
@@ -38,10 +49,15 @@ import {
   faGithub,
   faLinkedin,
   faPhp,
+  faAngular,
+  faAws
 } from '@fortawesome/free-brands-svg-icons';
 
 import Particles from "@tsparticles/vue3";
 import { loadFull } from "tsparticles";
+
+// Import custom CSS
+import './assets/custom.css';
 
 const app = createApp(App);
 
@@ -63,6 +79,9 @@ library.add(
   faStarHalfAlt,
   faHourglassHalf,
   faQuestionCircle,
+  faBolt,
+  faServer,
+  faRocket,
   faVuejs,
   faReact,
   faJsSquare,
@@ -75,7 +94,17 @@ library.add(
   faDocker,
   faGithub,
   faLinkedin,
-  faPhp
+  faPhp,
+  faAngular,
+  faLightbulb,
+  faCheckDouble,
+  faShieldAlt,
+  faUsers,
+  faBriefcase,
+  faGraduationCap,
+  faUserCheck,
+  faVial,
+  faAws
 );
 
 /**

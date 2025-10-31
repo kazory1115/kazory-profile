@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-lg w-full space-y-8">
       <div class="text-center">
         <h2 class="text-4xl font-extrabold text-white">
@@ -7,7 +7,7 @@
         </h2>
         <p class="mt-4 text-lg text-gray-400">有任何問題或合作機會？歡迎隨時與我聯繫！</p>
       </div>
-      <div class="bg-gray-800 shadow-2xl rounded-2xl p-8 space-y-6 transform hover:scale-105 transition-transform duration-500">
+      <div class="modern-card p-8 space-y-6">
         <form @submit.prevent="submitForm" class="space-y-6">
           <div>
             <label for="name" class="text-sm font-medium text-gray-400">姓名</label>

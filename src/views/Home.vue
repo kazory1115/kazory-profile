@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="hidden md:block animate-fade-in animation-delay-900">
-          <img class="rounded-lg shadow-2xl transform hover:rotate-3 transition-transform duration-500" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" alt="Homepage Image">
+          <img class="rounded-lg shadow-2xl transform hover:rotate-3 transition-transform duration-500" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Homepage Image">
         </div>
       </div>
     </div>
@@ -35,9 +35,9 @@
 <script setup>
 import { ref, computed } from 'vue';
 
-const mainTitle = ref('歡迎來到我的作品集');
-const subTitle = ref('一位熱情的網頁開發者');
-const description = ref('專注於打造使用者友善且功能強大的應用程式。');
+const mainTitle = ref('蘇建維');
+const subTitle = ref('後端工程師');
+const description = ref('Hi! 我是蘇建維，一位充滿熱情的網頁開發者，專注於打造高效能且使用者體驗良好的應用程式。');
 const projectButtonText = ref('查看我的專案');
 const contactButtonText = ref('聯絡我');
 
@@ -181,14 +181,5 @@ const particlesOptions = ref({
 
 .animation-delay-900 {
   animation-delay: 0.9s;
-}
-
-#tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
 }
 </style>

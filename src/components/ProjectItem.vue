@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300">
+  <div class="group relative modern-card overflow-hidden transform hover:-translate-y-2 transition-all duration-300">
     <router-link :to="{ name: 'ProjectDetail', params: { id: project.id } }">
       <div class="w-full h-48 bg-gray-700 overflow-hidden">
         <img :src="project.imageUrl" :alt="project.title" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-
 
 defineProps({
   project: Object,
