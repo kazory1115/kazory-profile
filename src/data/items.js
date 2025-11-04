@@ -15,7 +15,7 @@ export const allItems = ref([
       <div><h4 class="text-xl font-bold text-white mt-4 mb-2">行動 (Action)</h4><ul class="list-disc pl-6 text-gray-300"><li><b>前端：</b>使用 Vue 3 Composition API 及 Vue Router 打造互動式介面，並以 Tailwind CSS 進行客製化樣式設計。</li>
       <li><b>後端：</b>以 Laravel 建構 RESTful API，並透過 Sanctum 實現 SPA 的使用者身份驗證。</li><li><b>開發與部署：</b>全程使用 Docker 容器化開發環境，並設定 GitHub Actions 在推送到主分支時，自動部署至遠端主機。</li></ul></div>
       <div><h4 class="text-xl font-bold text-white mt-4 mb-2">成果 (Result)</h4><p>成功完成一個功能完善的 SPA 應用，不僅證明了獨立開發全端專案的能力，更完整體現了從開發、測試到自動化部署的現代化 DevOps 工作流程。</p></div>
-      <div class="mt-6"><h4 class="text-xl font-bold text-white mt-4 mb-2">自動化部署流程 (CI/CD)</h4><div class="font-mono text-sm text-gray-400 bg-gray-900 p-4 rounded-lg"><code><span class="text-blue-400">Git Push (main)</span> &rarr; 
+      <div class="mt-6"><h4 class="text-xl font-bold text-white mt-4 mb-2">自動化部署流程 (CI/CD)</h4><div class="font-mono text-sm text-gray-400 bg-gray-900 p-4 rounded-lg"><code><span class="text-orange-400">Git Push (main)</span> &rarr; 
       <span class="text-purple-400">GitHub Actions</span> &rarr; [Build & Test] &rarr; <span class="text-green-400">SSH & Deploy to VPS</span></code></div></div>
       </div>`,
     technologies: [

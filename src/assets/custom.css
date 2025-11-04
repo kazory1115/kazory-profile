@@ -1,18 +1,14 @@
 /* src/assets/custom.css */
 
 .modern-card {
-    background-color: rgba(23, 27, 33, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 1rem; /* rounded-2xl */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease-in-out;
+    background-color: #1f2937; /* gray-800 */
+    border: 1px solid #374151; /* gray-700 */
+    border-radius: 0.75rem; /* rounded-lg */
+    transition: border-color 0.3s ease;
 }
 
 .modern-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 30px rgba(0, 150, 255, 0.15);
-    transform: translateY(-5px);
+    border-color: #fdba74; /* orange-300 (Apricot) */
 }
 
 /* For scroll animations */

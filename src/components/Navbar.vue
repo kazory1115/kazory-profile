@@ -5,7 +5,7 @@
         <div class="flex items-center">
           <router-link
             to="/"
-            class="text-2xl font-bold text-white hover:text-blue-400 transition-colors"
+            class="text-2xl font-bold text-white hover:text-orange-300 transition-colors"
           >
             Kazory的作品集
           </router-link>

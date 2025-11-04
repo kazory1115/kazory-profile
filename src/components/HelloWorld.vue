@@ -12,7 +12,7 @@ const count = ref(0)
   <h1 class="text-3xl font-bold mb-4">{{ msg }}</h1>
 
   <div class="p-4 border rounded-lg shadow-lg">
-    <button type="button" @click="count++" class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+    <button type="button" @click="count++" class="px-4 py-2 font-bold text-white bg-teal-500 rounded hover:bg-teal-700">
       count is {{ count }}
     </button>
     <p class="mt-2">
@@ -23,7 +23,7 @@ const count = ref(0)
 
   <p class="mt-4">
     Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank" class="text-blue-500 hover:underline"
+    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank" class="text-teal-500 hover:underline"
       >create-vue</a
     >, the official Vue + Vite starter
   </p>
@@ -32,7 +32,7 @@ const count = ref(0)
     <a
       href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
       target="_blank"
-      class="text-blue-500 hover:underline"
+      class="text-teal-500 hover:underline"
       >Vue Docs Scaling up Guide</a
     >.
   </p>

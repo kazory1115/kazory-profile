@@ -4,7 +4,7 @@
       <div class="text-center mb-12 animate-fade-in-down">
         <h1 class="text-5xl font-extrabold text-white mb-4">
           <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-300"
+            class="bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-orange-400"
           >
             我的專案
           </span>
@@ -13,36 +13,32 @@
           探索我精心打造的專案，從 Web 應用到雲端部署。
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          v-for="(project, index) in projects"
-          :key="project.id"
-          class="transform hover:scale-105 transition-transform duration-300 ease-in-out animate-fade-in-up"
-          :style="{ animationDelay: `${index * 100}ms` }"
+
+      <!-- Filter Buttons -->
+      <div class="flex justify-center space-x-4 mb-12 animate-fade-in-down">
+        <button
+          v-for="filter in filters"
+          :key="filter.value"
+          @click="setFilter(filter.value)"
+          :class="[
+            'px-6 py-2 rounded-full text-base font-medium transition-colors duration-300',
+            activeFilter === filter.value
+              ? 'bg-orange-300 text-gray-900'
+              : 'bg-gray-800 text-gray-300 hover:bg-gray-700',
+          ]"
         >
-          <ProjectItem :project="project" />
-        </div>
+          {{ filter.label }}
+        </button>
       </div>
 
-      <!-- Notes Section -->
-      <div class="text-center my-16 animate-fade-in-down">
-        <h2 class="text-4xl font-extrabold text-white mb-4">
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-300">
-            個人筆記
-          </span>
-        </h2>
-        <p class="text-xl text-gray-400">
-          紀錄學習與開發中的一些想法與心得。
-        </p>
-      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
-          v-for="(note, index) in notes"
-          :key="note.id"
-          class="transform hover:scale-105 transition-transform duration-300 ease-in-out animate-fade-in-up"
-          :style="{ animationDelay: `${(projects.length + index) * 100}ms` }"
+          v-for="(item, index) in filteredItems"
+          :key="item.id"
+          class="transition-transform duration-300 ease-in-out animate-fade-in-up"
+          :style="{ animationDelay: `${index * 100}ms` }"
         >
-          <ProjectItem :project="note" />
+          <ProjectItem :project="item" />
         </div>
       </div>
     </div>
@@ -50,12 +46,28 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import ProjectItem from '../components/ProjectItem.vue';
 import { allItems } from '../data/items.js';
 
-const projects = computed(() => allItems.value.filter(item => item.type === 'project'));
-const notes = computed(() => allItems.value.filter(item => item.type === 'note'));
+const filters = [
+  { label: '全部', value: 'all' },
+  { label: '專案', value: 'project' },
+  { label: '筆記', value: 'note' },
+];
+
+const activeFilter = ref('all');
+
+const setFilter = (filter) => {
+  activeFilter.value = filter;
+};
+
+const filteredItems = computed(() => {
+  if (activeFilter.value === 'all') {
+    return allItems.value;
+  }
+  return allItems.value.filter(item => item.type === activeFilter.value);
+});
 </script>
 
 <style scoped>

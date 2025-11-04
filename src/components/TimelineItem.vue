@@ -6,7 +6,7 @@
     ></div>
     <!-- Dot -->
     <div
-      class="absolute left-0 sm:left-2 top-6 w-4 h-4 rounded-full bg-gray-700 border-2 border-gray-800 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center"
+      class="absolute left-0 sm:left-2 top-6 w-4 h-4 rounded-full bg-gray-700 border-2 border-gray-800 group-hover:bg-orange-300 transition-colors duration-300 flex items-center justify-center"
     >
       <font-awesome-icon :icon="icon" class="text-gray-900 text-xs" />
     </div>

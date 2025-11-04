@@ -51,7 +51,7 @@
           <a
             :href="project.link"
             target="_blank"
-            class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 shadow-lg transform hover:scale-105 transition-transform duration-300"
+            class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-orange-300 hover:bg-orange-400 shadow-lg transform hover:scale-105 transition-transform duration-300"
           >
             訪問網站
           </a>
@@ -61,7 +61,7 @@
     <div v-else class="flex items-center justify-center h-screen">
       <div class="text-center">
         <svg
-          class="animate-spin h-10 w-10 text-blue-500 mx-auto mb-4"
+          class="animate-spin h-10 w-10 text-orange-300 mx-auto mb-4"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

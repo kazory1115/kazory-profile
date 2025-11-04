@@ -10,7 +10,7 @@
             alt="Your Name"
           />
           <h1 class="text-4xl font-extrabold text-white">{{ name }}</h1>
-          <p class="text-xl text-blue-400 mt-2 mb-6">{{ jobTitle }}</p>
+          <p class="text-xl text-orange-300 mt-2 mb-6">{{ jobTitle }}</p>
 
           <div class="flex justify-center space-x-4 mb-6">
             <a
@@ -27,11 +27,11 @@
 
           <div class="text-left space-y-4">
             <div>
-              <h3 class="text-lg font-semibold text-blue-400">Email</h3>
+              <h3 class="text-lg font-semibold text-orange-300">Email</h3>
               <p class="text-gray-300">{{ email }}</p>
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-blue-400">電話</h3>
+              <h3 class="text-lg font-semibold text-orange-300">電話</h3>
               <p class="text-gray-300">{{ phone }}</p>
             </div>
           </div>
@@ -40,7 +40,7 @@
             <a
               :href="cvUrl"
               target="_blank"
-              class="inline-block w-full px-6 py-3 bg-blue-600 rounded-full text-lg font-semibold text-white hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
+              class="inline-block w-full px-6 py-3 bg-orange-300 text-gray-900 rounded-full text-lg font-semibold text-white hover:bg-orange-400 transform hover:scale-105 transition-all duration-300 shadow-lg"
             >
               查看線上履歷
             </a>
@@ -83,10 +83,10 @@
             <div
               v-for="p in principles"
               :key="p.title"
-              class="bg-gray-700/50 p-4 rounded-lg transform hover:scale-105 transition-transform duration-300"
+              class="bg-gray-700/50 p-4 rounded-lg transition-transform duration-300"
             >
               <h4
-                class="text-lg font-semibold text-blue-400 flex items-center mb-2"
+                class="text-lg font-semibold text-orange-300 flex items-center mb-2"
               >
                 <font-awesome-icon :icon="p.icon" class="mr-3 w-5" />
                 {{ p.title }}
@@ -105,7 +105,7 @@
           <h2 class="text-3xl font-bold text-white mb-6">專業技能</h2>
           <div class="space-y-8">
             <div v-for="category in skillCategories" :key="category.name">
-              <h3 class="text-xl font-semibold text-blue-400 mb-2">
+              <h3 class="text-xl font-semibold text-orange-300 mb-2">
                 {{ category.name }}
               </h3>
               <p class="text-gray-400 text-sm mb-4">
@@ -307,7 +307,7 @@ const skillCategories = ref([
         name: 'MySQL',
         level: 85,
         icon: ['fas', 'database'],
-        color: 'text-blue-400',
+        color: 'text-teal-400',
       },
     ],
   },
