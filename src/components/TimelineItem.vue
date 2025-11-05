@@ -23,10 +23,25 @@
 
 <script setup>
 defineProps({
-  period: String,
-  title: String,
-  subtitle: String,
-  description: String,
-  icon: Array,
+  period: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  subtitle: {
+    type: String,
+    default: '',
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  icon: {
+    type: Array,
+    required: true,
+  },
 });
 </script>

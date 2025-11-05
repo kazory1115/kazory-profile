@@ -1,5 +1,6 @@
 /* src/assets/custom.css */
 
+/* 現代化卡片樣式 */
 .modern-card {
     background-color: #1f2937; /* gray-800 */
     border: 1px solid #374151; /* gray-700 */
@@ -11,7 +12,7 @@
     border-color: #fdba74; /* orange-300 (Apricot) */
 }
 
-/* For scroll animations */
+/* 滾動觸發動畫 */
 .fade-in-up-animation {
     opacity: 0;
     transform: translateY(20px);
@@ -21,4 +22,51 @@
 .fade-in-up-animation.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Keyframe 動畫定義 */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 動畫類別 */
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-fade-in-down {
+    animation: fade-in-down 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out forwards;
 }

@@ -8,49 +8,48 @@
       <span class="text-sm font-medium text-orange-300">{{ level }}%</span>
     </div>
     <div class="w-full bg-gray-700 rounded-full h-2.5">
-      <div class="bg-orange-300 h-2.5 rounded-full transition-all duration-1000 ease-out" :style="{ width: animatedLevel + '%' }"></div>
+      <div
+        class="bg-orange-300 h-2.5 rounded-full transition-all duration-1000 ease-out"
+        :style="{ width: animatedLevel + '%' }"
+      ></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, watch } from 'vue';
+import { useIntersectionObserver } from '../composables/useIntersectionObserver.js';
 
 const props = defineProps({
-  name: String,
-  level: Number,
-  icon: Array,
-  color: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  level: {
+    type: Number,
+    required: true,
+    validator: (value) => value >= 0 && value <= 100,
+  },
+  icon: {
+    type: Array,
+    required: true,
+  },
+  color: {
+    type: String,
+    default: 'text-orange-300',
+  },
 });
 
 const animatedLevel = ref(0);
 const elementRef = ref(null);
 
-let observer = null;
+// 使用 composable 偵測元素可見性
+const { isVisible } = useIntersectionObserver(elementRef, { threshold: 0.5 });
 
-onMounted(() => {
-  observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry && entry.isIntersecting) {
-        animatedLevel.value = props.level;
-        if (elementRef.value) {
-          observer.unobserve(elementRef.value);
-        }
-      }
-    },
-    {
-      threshold: 0.5, // Trigger when 50% of the element is visible
-    }
-  );
-
-  if (elementRef.value) {
-    observer.observe(elementRef.value);
-  }
-});
-
-onUnmounted(() => {
-  if (observer && elementRef.value) {
-    observer.unobserve(elementRef.value);
+// 當元素可見時觸發動畫
+watch(isVisible, (visible) => {
+  if (visible && animatedLevel.value === 0) {
+    animatedLevel.value = props.level;
   }
 });
 </script>

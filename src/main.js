@@ -33,7 +33,11 @@ import {
   faBriefcase,
   faGraduationCap,
   faUserCheck,
-  faVial
+  faVial,
+  faEnvelope,
+  faPhone,
+  faMapMarkerAlt,
+  faPaperPlane
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faVuejs,
@@ -104,7 +108,11 @@ library.add(
   faGraduationCap,
   faUserCheck,
   faVial,
-  faAws
+  faAws,
+  faEnvelope,
+  faPhone,
+  faMapMarkerAlt,
+  faPaperPlane
 );
 
 /**
