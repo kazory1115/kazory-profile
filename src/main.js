@@ -37,7 +37,9 @@ import {
   faEnvelope,
   faPhone,
   faMapMarkerAlt,
-  faPaperPlane
+  faPaperPlane,
+  faSun,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faVuejs,
@@ -112,7 +114,9 @@ library.add(
   faEnvelope,
   faPhone,
   faMapMarkerAlt,
-  faPaperPlane
+  faPaperPlane,
+  faSun,
+  faMoon
 );
 
 /**

@@ -1,71 +1,83 @@
 <template>
-  <div class="bg-gray-900 min-h-screen">
-    <div class="container mx-auto px-4 py-16">
-      <div class="text-center mb-12 animate-fade-in-down">
-        <h1 class="text-5xl font-extrabold text-white mb-4">
-          <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-orange-400"
-          >
-            我的專案
-          </span>
-        </h1>
-        <p class="text-xl text-gray-400">
-          探索我精心打造的專案，從 Web 應用到雲端部署。
+  <div class="page-shell">
+    <section class="page-hero--split">
+      <div class="section-heading">
+        <p class="eyebrow">Projects</p>
+        <h1>精選專案與工程案例，聚焦架構設計、重構與實務落地。</h1>
+        <p class="page-lead">
+          作品內容以代表性案例為主，涵蓋系統拆分、框架升級、效能調整與開發流程整理。
+          每個項目都會交代背景、技術決策、實作內容與可延伸方向。
         </p>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="flex justify-center space-x-4 mb-12 animate-fade-in-down">
-        <button
-          v-for="filter in filters"
-          :key="filter.value"
-          @click="setFilter(filter.value)"
-          :class="[
-            'px-6 py-2 rounded-full text-base font-medium transition-colors duration-300',
-            activeFilter === filter.value
-              ? 'bg-orange-300 text-gray-900'
-              : 'bg-gray-800 text-gray-300 hover:bg-gray-700',
-          ]"
-        >
-          {{ filter.label }}
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          v-for="(item, index) in filteredItems"
-          :key="item.id"
-          class="transition-transform duration-300 ease-in-out animate-fade-in-up"
-          :style="{ animationDelay: `${index * 100}ms` }"
-        >
-          <ProjectItem :project="item" />
+      <aside class="card-surface sticky-card">
+        <p class="eyebrow">Portfolio Structure</p>
+        <div class="summary-list">
+          <div class="summary-list__item">
+            <span>Case studies</span>
+            <strong>{{ projects.length }} 個重點案例</strong>
+          </div>
+          <div class="summary-list__item">
+            <span>Repositories</span>
+            <strong>{{ githubRepositories.length }} 個公開 repo</strong>
+          </div>
+          <div class="summary-list__item">
+            <span>Focus</span>
+            <strong>Refactoring、architecture、large-data workflow、developer experience</strong>
+          </div>
         </div>
+      </aside>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Selected Work</p>
+        <h2>每個案例都對應一類實際工程問題，包含系統重構、資料流程與開發體驗優化。</h2>
       </div>
-    </div>
+      <div class="project-grid">
+        <router-link
+          v-for="(project, index) in projects"
+          :key="project.id"
+          :to="{ name: 'ProjectDetail', params: { id: project.id } }"
+          class="card-surface project-card"
+        >
+          <div class="project-card__meta">
+            <p class="card-kicker">{{ project.category }}</p>
+            <span class="project-card__index">0{{ index + 1 }}</span>
+          </div>
+          <h2>{{ project.title }}</h2>
+          <p>{{ project.description }}</p>
+          <div class="tag-list">
+            <span v-for="tech in project.technologies.slice(0, 4)" :key="tech">{{ tech }}</span>
+          </div>
+          <div class="project-card__footer">
+            <span>Open case study</span>
+            <span>-></span>
+          </div>
+        </router-link>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Repositories</p>
+        <h2>公開 repositories 涵蓋日常關注的技術主題與實驗方向。</h2>
+      </div>
+      <div class="repo-grid">
+        <article v-for="repo in githubRepositories" :key="repo.name" class="card-surface repo-card">
+          <div class="repo-card__head">
+            <h3>{{ repo.name }}</h3>
+            <span>{{ repo.language }}</span>
+          </div>
+          <p class="subtle">Last updated: {{ repo.updatedAt }}</p>
+          <p>{{ repo.note }}</p>
+          <a :href="repo.url" target="_blank" rel="noreferrer" class="contact-link">Open GitHub</a>
+        </article>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import ProjectItem from '../components/ProjectItem.vue';
-import { allItems } from '../data/items.js';
-
-const filters = [
-  { label: '全部', value: 'all' },
-  { label: '專案', value: 'project' },
-  { label: '筆記', value: 'note' },
-];
-
-const activeFilter = ref('all');
-
-const setFilter = (filter) => {
-  activeFilter.value = filter;
-};
-
-const filteredItems = computed(() => {
-  if (activeFilter.value === 'all') {
-    return allItems.value;
-  }
-  return allItems.value.filter(item => item.type === activeFilter.value);
-});
+import { githubRepositories, projects } from '../data/site.js';
 </script>

@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="app-shell">
     <Navbar />
-    <router-view />
+    <main class="app-main">
+      <router-view />
+    </main>
   </div>
 </template>
 
