@@ -1,10 +1,12 @@
 import avatarImg from '/images/avatar.png';
+export { writings } from './writings.js';
+export { projects } from './projects.js';
 
 export const profile = {
   name: '蘇建維',
   englishName: 'Kazory Su',
-  title: 'Backend Engineer',
-  location: 'Taiwan',
+  title: '後端工程師',
+  location: '台灣',
   avatarUrl: avatarImg,
   email: 'jay86888688@gmail.com',
   githubUrl: 'https://github.com/kazory1115',
@@ -19,15 +21,15 @@ export const profile = {
 
 export const navItems = [
   { to: '/', text: '首頁' },
-  { to: '/about', text: 'About' },
-  { to: '/project', text: 'Projects' },
-  { to: '/writing', text: 'Writing' },
+  { to: '/about', text: '關於我' },
+  { to: '/project', text: '專案' },
+  { to: '/writing', text: '文章' },
 ];
 
 export const heroMetrics = [
   { value: 'PHP', label: '主力語言' },
   { value: 'CI / Laravel', label: '主要框架' },
-  { value: 'Refactoring', label: '核心主題' },
+  { value: '系統重構', label: '核心主題' },
   { value: '10萬+', label: '曾處理資料量級' },
 ];
 
@@ -44,15 +46,15 @@ export const introTags = [
 
 export const focusAreas = [
   {
-    title: 'Legacy Refactoring',
+    title: '舊系統重構',
     text: '整理 fat controller、共用邏輯散落與模組邊界不清的舊系統，重新建立可維護的責任分層。',
   },
   {
-    title: 'Large Data Flow',
+    title: '大型資料流程',
     text: '面對大量資料匯出、批次處理與長流程操作時，優先考慮 chunk、batch、I/O 與 transaction 邊界。',
   },
   {
-    title: 'Developer Experience',
+    title: '開發體驗',
     text: '透過 Docker、README、部署流程與專案約定整理，降低接手成本與環境不一致問題。',
   },
 ];
@@ -81,19 +83,19 @@ export const architectureHighlights = [
 
 export const journey = [
   {
-    period: 'Current Focus',
+    period: '目前重點',
     title: '後端重構、技術整理與可維護性優先',
     description:
       '持續將過去做過的系統與 side project 整理成可閱讀的案例，聚焦 API、資料流、模組邊界與工程決策。',
   },
   {
-    period: 'Refactoring',
+    period: '系統重構',
     title: '從既有系統整理出可演進的分層架構',
     description:
       '處理過 CodeIgniter 升級、Service Layer 收斂、API 化與前後端責任切分，目標是降低需求疊加後的維護成本。',
   },
   {
-    period: 'Side Projects',
+    period: '個人專案',
     title: '透過小型專案驗證架構與部署流程',
     description:
       '使用 Vue 3、Laravel、Docker、SSE、WebSocket 等 side project 驗證實作細節，避免停留在概念層。',
@@ -102,15 +104,15 @@ export const journey = [
 
 export const skillGroups = [
   {
-    title: 'Backend',
+    title: '後端開發',
     items: ['PHP', 'CodeIgniter 3 / 4', 'Laravel 12', 'RESTful API', 'Service Layer', 'Repository Pattern'],
   },
   {
-    title: 'Data & Infra',
+    title: '資料與基礎設施',
     items: ['MySQL', 'MariaDB', 'PostgreSQL', 'Docker Compose', 'Nginx', 'GitHub Actions'],
   },
   {
-    title: 'Frontend & Tooling',
+    title: '前端與開發工具',
     items: ['Vue 3', 'Vite', 'Pinia', 'JavaScript', 'DataTables', 'Postman', 'SonarQube'],
   },
 ];
@@ -121,7 +123,7 @@ export const featuredChecklist = [
   '網站內容以可讀性與工程脈絡為主，方便快速理解實作能力。',
 ];
 
-export const projects = [
+const archivedProjects = [
   {
     id: 1,
     title: 'Easy CRM',
@@ -212,7 +214,7 @@ export const projects = [
   },
 ];
 
-export const writings = [
+const archivedWritings = [
   {
     slug: 'service-layer-in-ci-refactor',
     title: 'CodeIgniter 重構時，Service Layer 要怎麼拆才不會再長歪',

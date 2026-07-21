@@ -59,9 +59,6 @@ import {
   faAws
 } from '@fortawesome/free-brands-svg-icons';
 
-import Particles from "@tsparticles/vue3";
-import { loadFull } from "tsparticles";
-
 // Import custom CSS
 import './assets/custom.css';
 
@@ -126,13 +123,6 @@ app.use(router);
 
 //fontawesome
 app.component('font-awesome-icon', FontAwesomeIcon);
-
-//tsparticles
-app.use(Particles, {
-  init: async (engine) => {
-    await loadFull(engine);
-  },
-});
 
 // 載入主檔案
 app.mount('#app');
