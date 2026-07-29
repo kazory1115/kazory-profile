@@ -45,7 +45,8 @@
           class="menu-toggle"
           :class="{ 'menu-toggle--active': isOpen }"
           :aria-expanded="isOpen"
-          aria-label="開啟選單"
+          aria-controls="mobile-navigation"
+          :aria-label="isOpen ? '關閉選單' : '開啟選單'"
           @click="isOpen = !isOpen"
         >
           <span></span>
@@ -53,30 +54,43 @@
         </button>
       </div>
     </nav>
+  </header>
 
+  <Teleport to="body">
     <transition name="slide">
-      <div v-if="isOpen" class="site-nav__mobile mobile-only">
-        <router-link
-          v-for="item in navItems"
-          :key="item.to"
-          :to="item.to"
-          class="site-nav__mobile-link"
-          active-class="site-nav__mobile-link--active"
-          @click="isOpen = false"
-        >
-          {{ item.text }}
-        </router-link>
+      <div
+        v-if="isOpen"
+        id="mobile-navigation"
+        class="site-nav__mobile mobile-only"
+        @click.self="closeMenu"
+      >
+        <nav class="site-nav__mobile-inner" aria-label="手機版主要導覽">
+          <router-link
+            v-for="item in navItems"
+            :key="item.to"
+            :to="item.to"
+            class="site-nav__mobile-link"
+            active-class="site-nav__mobile-link--active"
+            @click="closeMenu"
+          >
+            {{ item.text }}
+          </router-link>
+        </nav>
       </div>
     </transition>
-  </header>
+  </Teleport>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { navItems } from '../data/site.js';
 
 const isOpen = ref(false);
 const isDark = ref(true);
+
+const closeMenu = () => {
+  isOpen.value = false;
+};
 
 const updateTheme = () => {
   const root = document.documentElement;
@@ -96,11 +110,36 @@ const toggleTheme = () => {
   updateTheme();
 };
 
+const handleKeydown = (event) => {
+  if (event.key === 'Escape') {
+    closeMenu();
+  }
+};
+
+const handleViewportChange = () => {
+  if (window.innerWidth >= 768) {
+    closeMenu();
+  }
+};
+
+watch(isOpen, (open) => {
+  document.body.classList.toggle('mobile-menu-open', open);
+});
+
 onMounted(() => {
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   isDark.value = savedTheme ? savedTheme === 'dark' : prefersDark;
   updateTheme();
+
+  window.addEventListener('keydown', handleKeydown);
+  window.addEventListener('resize', handleViewportChange);
+});
+
+onBeforeUnmount(() => {
+  document.body.classList.remove('mobile-menu-open');
+  window.removeEventListener('keydown', handleKeydown);
+  window.removeEventListener('resize', handleViewportChange);
 });
 </script>
 
@@ -203,17 +242,29 @@ onMounted(() => {
 .site-nav__mobile {
   position: fixed;
   inset: 4rem 0 0;
-  padding: 1rem;
-  background: var(--nav-bg);
+  z-index: 99;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  background: var(--bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
   border-top: 1px solid var(--line);
 }
 
+.site-nav__mobile-inner {
+  width: min(var(--container-width), calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .site-nav__mobile-link {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
   padding: 0.875rem 1rem;
   border-radius: var(--radius-sm);
   font-size: 1rem;
@@ -226,6 +277,10 @@ onMounted(() => {
 .site-nav__mobile-link--active {
   color: var(--text);
   background: var(--surface-soft);
+}
+
+:global(body.mobile-menu-open) {
+  overflow: hidden;
 }
 
 /* Slide transition */

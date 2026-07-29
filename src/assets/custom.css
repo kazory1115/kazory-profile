@@ -400,8 +400,9 @@
 }
 
 .summary-list__item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(6.5rem, auto) minmax(0, 1fr);
+  gap: 1.5rem;
   align-items: baseline;
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--line);
@@ -412,12 +413,16 @@
   font-size: 0.75rem;
   color: var(--muted);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .summary-list__item strong {
+  min-width: 0;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 /* Plain List */
@@ -432,15 +437,19 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  padding-left: 0.875rem;
+  padding-left: 1rem;
   position: relative;
 }
 
 .plain-list li::before {
-  content: '—';
+  content: '';
   position: absolute;
   left: 0;
-  color: var(--accent);
+  top: 0.68em;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 /* ═══════════════════════════════════════════
@@ -721,6 +730,13 @@
 
   .page-shell {
     padding-top: 3rem;
+  }
+
+  .summary-list__item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+    align-items: start;
+    padding: 1rem 0;
   }
 
   .writing-item {
