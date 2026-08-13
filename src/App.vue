@@ -12,14 +12,19 @@
     </main>
     <footer class="site-footer">
       <div>
-        <span class="eyebrow">Kazory Su</span>
+        <span class="eyebrow">{{ profile.englishName }}</span>
         <strong>後端工程、系統重構與實作筆記。</strong>
       </div>
-      <a href="mailto:jay86888688@gmail.com">jay86888688@gmail.com</a>
+      <a v-if="profile.email" :href="`mailto:${profile.email}`">{{ profile.email }}</a>
     </footer>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import Navbar from './components/Navbar.vue';
+import { useSiteContent } from './composables/useSiteContent.js';
+
+const { site } = useSiteContent();
+const profile = computed(() => site.value?.profile ?? {});
 </script>

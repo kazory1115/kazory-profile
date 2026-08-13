@@ -1,85 +1,34 @@
-# Vue 3 + Vite Project
+# Kazory Profile
 
-[![繁體中文](https://img.shields.io/badge/語言-繁體中文-blue)](https://github.com/kazory1115/vue_app/blob/main/README.md)
-[![English](https://img.shields.io/badge/Language-English-blue)](https://github.com/kazory1115/vue_app/blob/main/README.en.md)
+A Vue 3 and Vite portfolio whose local content is stored as validated JSON. Views never import JSON directly: they consume asynchronous repository contracts, so a REST API and database can replace the local adapter without rewriting page components.
 
+## Highlights
 
-This project is built with Vue 3 and Vite, providing a fast and modern development environment for your web application.
+- Explicit schemas for projects, writings, and site configuration
+- Runtime validation for required fields, unique identities, enums, dates, and safe URLs
+- Repository-owned search, filters, facets, detail lookup, and article navigation
+- Structured content blocks rendered with Vue text bindings; no `v-html`
+- Draft content is excluded from public repository results by default
 
-## Features
+## Architecture
 
-- ⚡️ **Lightning Fast Development** with [Vite](https://vitejs.dev/)
-- 🛠️ **Vue 3 Composition API** with `<script setup>` syntax
-- 📱 **Responsive Design** out of the box
-- 🚦 **Vue Router** for seamless navigation
-
-## Project Structure
-
-```
-vue_test/
-├─ public/                 # Static assets copied directly to dist/
-│  └─ favicon.svg          # Default favicon (can be replaced)
-│
-├─ src/                    # Source code
-│  ├─ assets/              # Images, CSS, fonts and other assets
-│  ├─ components/          # Reusable components (buttons, cards, etc.)
-│  ├─ views/               # Route components/pages (Home, About, etc.)
-│  ├─ router/              # Vue Router configuration
-│  │  └─ index.js          # Router setup and routes definition
-│  ├─ App.vue              # Main component (layout and router-view)
-│  └─ main.js / main.ts    # Application entry point
-│
-├─ index.html              # Main HTML file (JS will be injected)
-├─ vite.config.js          # Vite configuration
-├─ package.json            # Dependencies and scripts
-└─ tsconfig.json           # TypeScript configuration (if applicable)
+```text
+Vue Views → Repositories → Local JSON (current)
+                         → REST API → Database (future)
 ```
 
-## Getting Started
+JSON establishes the data contract. The repository boundary—not the file extension—is what makes the database migration inexpensive.
 
-### Prerequisites
+## Commands
 
-- [Node.js](https://nodejs.org/) (v14+)
-- npm or yarn
+Node.js 20 or newer is required.
 
-### Installation
+```bash
+npm ci
+npm run dev
+npm run check
+```
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd vue_test
-   ```
+`npm run check` validates content, runs repository tests, and creates a production build. Do not share one `node_modules` directory between Windows and WSL because the build toolchain includes OS-specific packages.
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Add Vue Router (if not already installed):
-   ```bash
-   npm install vue-router
-   ```
-
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-5. Build for production:
-   ```bash
-   npm run build
-   ```
-
-## IDE Support
-
-For the best development experience, we recommend:
-- [VS Code](https://code.visualstudio.com/) with the [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension
-- Disable Vetur if you have it installed
-- Check out more IDE recommendations in the [Vue Docs Scaling Up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support)
-
-## Resources
-
-- [Vue 3 Documentation](https://vuejs.org/)
-- [Script Setup Documentation](https://v3.vuejs.org/api/sfc-script-setup.html)
-- [Vite Documentation](https://vitejs.dev/)
-- [Vue Router Documentation](https://router.vuejs.org/)
+See [the content guide](docs/writing-guide.md) and [README.md](README.md) for the full structure and migration notes.

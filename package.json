@@ -1,5 +1,5 @@
 {
-  "name": "vue_app",
+  "name": "kazory-profile",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,24 +7,20 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "validate:content": "node scripts/validate-content.mjs",
+    "test": "node --test tests/contentRepositories.test.mjs",
+    "check": "npm run validate:content && npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-brands-svg-icons": "^7.0.0",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/vue-fontawesome": "^3.0.8",
-    "@tsparticles/vue3": "^3.0.1",
-    "marked": "^18.0.7",
-    "tsparticles": "^3.9.1",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "vue3-particles": "^2.12.0"
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.16",
     "@vitejs/plugin-vue": "^5.2.2",
-    "gh-pages": "^6.3.0",
     "tailwindcss": "^4.1.16",
     "vite": "^6.3.1"
   }

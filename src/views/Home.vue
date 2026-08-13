@@ -1,6 +1,11 @@
 <template>
   <div class="page-shell">
 
+    <AsyncState v-if="isLoading" />
+    <AsyncState v-else-if="error" is-error :message="error.message" @retry="reload" />
+
+    <template v-else-if="homeData">
+
     <!-- ── Hero (Clean & Minimalist Editorial Intro) ── -->
     <section class="home-hero">
       <div class="home-hero__content">
@@ -28,24 +33,11 @@
       </div>
 
       <div class="project-list">
-        <router-link
+        <ProjectListItem
           v-for="project in featuredProjects"
           :key="project.id"
-          :to="{ name: 'ProjectDetail', params: { id: project.id } }"
-          class="project-item"
-        >
-          <div class="project-item__year">{{ project.year }}</div>
-          <div class="project-item__main">
-            <h3 class="project-item__title">{{ project.title }}</h3>
-            <p class="project-item__desc">{{ project.description }}</p>
-            <div class="tag-list">
-              <span v-for="tech in project.technologies.slice(0, 5)" :key="tech">{{ tech }}</span>
-            </div>
-          </div>
-          <div class="project-item__meta">
-            <span class="project-item__category">{{ project.category }}</span>
-          </div>
-        </router-link>
+          :project="project"
+        />
       </div>
 
       <div class="section-cta">
@@ -86,18 +78,11 @@
       </div>
 
       <div class="writing-list">
-        <router-link
+        <WritingListItem
           v-for="note in featuredWritings"
           :key="note.slug"
-          :to="{ name: 'WritingDetail', params: { slug: note.slug } }"
-          class="writing-item"
-        >
-          <span class="writing-item__date">{{ note.date }}</span>
-          <span class="writing-item__title">{{ note.title }}</span>
-          <div class="writing-item__meta">
-            <span class="writing-item__category">{{ note.category }}</span>
-          </div>
-        </router-link>
+          :writing="note"
+        />
       </div>
 
       <div class="section-cta">
@@ -105,22 +90,39 @@
       </div>
     </section>
 
+    </template>
+
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import {
-  engineeringPrinciples,
-  focusAreas,
-  introTags,
-  profile,
-  projects,
-  writings,
-} from '../data/site.js';
+import AsyncState from '../components/common/AsyncState.vue';
+import ProjectListItem from '../components/content/ProjectListItem.vue';
+import WritingListItem from '../components/content/WritingListItem.vue';
+import { useAsyncData } from '../composables/useAsyncData.js';
+import { loadSiteContent } from '../composables/useSiteContent.js';
+import { projectRepository, writingRepository } from '../repositories/index.js';
 
-const featuredProjects = computed(() => projects.slice(0, 3));
-const featuredWritings = computed(() => writings.slice(0, 3));
+const { data: homeData, error, isLoading, reload } = useAsyncData(async () => {
+  const [site, projectResult, writingResult] = await Promise.all([
+    loadSiteContent(),
+    projectRepository.list({ featured: true, limit: 3 }),
+    writingRepository.list({ featured: true, limit: 3 }),
+  ]);
+
+  return {
+    site,
+    projects: projectResult.items,
+    writings: writingResult.items,
+  };
+});
+
+const profile = computed(() => homeData.value?.site.profile ?? {});
+const engineeringPrinciples = computed(() => homeData.value?.site.engineeringPrinciples ?? []);
+const focusAreas = computed(() => homeData.value?.site.focusAreas ?? []);
+const featuredProjects = computed(() => homeData.value?.projects ?? []);
+const featuredWritings = computed(() => homeData.value?.writings ?? []);
 </script>
 
 <style scoped>

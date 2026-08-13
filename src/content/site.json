@@ -1,0 +1,51 @@
+{
+  "profile": {
+    "name": "蘇建維",
+    "englishName": "Kazory Su",
+    "title": "後端工程師",
+    "location": "台灣",
+    "email": "jay86888688@gmail.com",
+    "githubUrl": "https://github.com/kazory1115",
+    "intro": "專注於 PHP 後端、既有系統重構、API 設計與大型資料流程整理，重視分層清晰、可維護性與實作落地。",
+    "summary": [
+      "主要技術棧為 PHP、CodeIgniter、Laravel、MySQL 與 Vue 3。習慣將 Controller 壓薄，將複雜流程收斂到 Service Layer 或明確的應用層。",
+      "實作經驗涵蓋舊系統重構、CodeIgniter 3 升級到 CodeIgniter 4、RESTful API 拆分、大型匯出流程優化，以及 Docker 化的本地開發流程整理。",
+      "比起追求表面上的功能完成，更重視資料如何流動、邏輯應該落在哪一層，以及需求持續疊加後專案是否仍可維護。"
+    ]
+  },
+  "navigation": [
+    { "to": "/", "text": "首頁" },
+    { "to": "/about", "text": "關於我" },
+    { "to": "/project", "text": "專案" },
+    { "to": "/writing", "text": "文章" }
+  ],
+  "focusAreas": [
+    { "title": "舊系統重構", "text": "整理 fat controller、共用邏輯散落與模組邊界不清的舊系統，重新建立可維護的責任分層。" },
+    { "title": "大型資料流程", "text": "面對大量資料匯出、批次處理與長流程操作時，優先考慮 chunk、batch、I/O 與 transaction 邊界。" },
+    { "title": "開發體驗", "text": "透過 Docker、README、部署流程與專案約定整理，降低接手成本與環境不一致問題。" }
+  ],
+  "engineeringPrinciples": [
+    "Controller 不直接承擔複雜資料流程，商業邏輯應收斂到 Service 或應用層。",
+    "跨多個 Model 的更新需要有清楚的 transaction 邊界與 rollback 策略。",
+    "大量資料不做一次全撈，優先考慮 chunk、cursor、batch insert 與索引設計。",
+    "每個案例都應能回答問題在哪、為什麼這樣拆、後續如何擴充。"
+  ],
+  "journey": [
+    { "period": "目前重點", "title": "後端重構、技術整理與可維護性優先", "description": "持續將過去做過的系統與 side project 整理成可閱讀的案例，聚焦 API、資料流、模組邊界與工程決策。" },
+    { "period": "系統重構", "title": "從既有系統整理出可演進的分層架構", "description": "處理過 CodeIgniter 升級、Service Layer 收斂、API 化與前後端責任切分，目標是降低需求疊加後的維護成本。" },
+    { "period": "個人專案", "title": "透過小型專案驗證架構與部署流程", "description": "使用 Vue 3、Laravel、Docker、SSE、WebSocket 等 side project 驗證實作細節，避免停留在概念層。" }
+  ],
+  "skillGroups": [
+    { "title": "後端開發", "items": ["PHP", "CodeIgniter 3 / 4", "Laravel 12", "RESTful API", "Service Layer", "Repository Pattern"] },
+    { "title": "資料與基礎設施", "items": ["MySQL", "MariaDB", "PostgreSQL", "Docker Compose", "Nginx", "GitHub Actions"] },
+    { "title": "前端與開發工具", "items": ["Vue 3", "Vite", "Pinia", "JavaScript", "DataTables", "Postman", "SonarQube"] }
+  ],
+  "githubRepositories": [
+    { "name": "easy-crm", "language": "PHP", "url": "https://github.com/kazory1115/easy-crm", "note": "CRM side project，強調模組切分、API 設計與 Docker 化流程。" },
+    { "name": "simple-websocket-server", "language": "JavaScript", "url": "https://github.com/kazory1115/simple-websocket-server", "note": "以最小範例驗證 WebSocket 溝通流程與事件傳遞。" },
+    { "name": "chat_sse_demo", "language": "HTML", "url": "https://github.com/kazory1115/chat_sse_demo", "note": "用小型 demo 驗證 SSE 的實際使用場景。" },
+    { "name": "LaravelDocker", "language": "Dockerfile", "url": "https://github.com/kazory1115/LaravelDocker", "note": "Laravel + Docker 開發骨架，偏向本地開發體驗整理。" },
+    { "name": "quote_project", "language": "Vue", "url": "https://github.com/kazory1115/quote_project", "note": "Vue 專案實作，主要觀察元件結構與資料互動方式。" },
+    { "name": "stock_tool", "language": "Python", "url": "https://github.com/kazory1115/stock_tool", "note": "用 Python 寫的小工具，用來驗證資料整理流程。" }
+  ]
+}

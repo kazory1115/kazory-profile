@@ -1,135 +1,87 @@
-# Vue 3 + Vite 專案
+# Kazory Profile
 
-[![繁體中文](https://img.shields.io/badge/語言-繁體中文-blue)](https://github.com/kazory1115/vue_app/blob/main/README.md)
-[![English](https://img.shields.io/badge/Language-English-blue)](https://github.com/kazory1115/vue_app/blob/main/README.en.md)
+以 Vue 3 與 Vite 建置的個人作品集。內容目前由版本控制內的 JSON 提供，但頁面不直接依賴 JSON；所有讀取都經過非同步 Repository，因此後續可換成 REST API 與資料庫，而不必重寫頁面。
 
+## 技術與設計重點
 
+- Vue 3、Vue Router、Vite、Tailwind CSS 4
+- 專案、文章與網站設定採明確 JSON schema
+- Repository 統一列表、篩選、詳情、facets 與文章導航
+- Runtime validation 在建置前攔截缺欄位、重複 ID／slug 與不安全 URL
+- 文章內文使用結構化 content blocks 與 Vue text binding，不使用 `v-html`
+- 已發布與草稿是固定 enum；公開頁面預設不回傳草稿
 
+## 資料流
 
-本專案使用 Vue 3 和 Vite 構建，為您的個人網頁與作品集提供快速且現代化的開發環境。
-https://github.com/kazory1115/vue-profile
+```text
+Vue Views
+    ↓ async contract
+Repositories
+    ↓ validate / map / filter
+Local JSON adapter（目前）
+    ↓ 未來只替換 adapter
+REST API → Service → Database
+```
 
-## 特色功能
-
-- ⚡️ 使用 [Vite](https://vitejs.dev/) 實現**極速本地開發與建置體驗**
-- 🎨 **現代簡約排版** 搭配細緻的自訂 CSS 變數（支援深色/淺色模式切換）
-- 📝 **動態 Markdown 載入與解析**，新增專案與文章不需手動修改元件與路由
-- 🚦 使用 **Vue Router** 實現無縫導航與流暢的頁面切換動畫
+JSON 的價值是先固定前後端資料契約；真正降低資料庫遷移成本的是 Repository 邊界，而不是檔案副檔名本身。
 
 ## 專案結構
 
-```
-kazory-profile/
-├─ public/                 # 靜態資源（直接複製到 dist/ 目錄）
-├─ src/                    # 原始碼
-│  ├─ assets/              # 圖片、CSS（包含全新 index.css、custom.css 樣式系統）
-│  ├─ components/          # 可重用組件（Navbar 等）
-│  ├─ views/               # 路由頁面（首頁、關於我、專案列表、文章列表、詳細頁等）
-│  ├─ router/              # Vue Router 配置
-│  ├─ content/             # Markdown 文章與專案原始內容 🚀
-│  │  ├─ projects/         # 專案 Markdown 檔案
-│  │  └─ writings/         # 技術文章 Markdown 檔案
-│  ├─ data/                # 資料解析器與靜態定義
-│  │  ├─ markdown.js       # Markdown 與 Frontmatter 解析器
-│  │  ├─ projects.js       # 自動匯入並排序專案
-│  │  ├─ writings.js       # 自動匯入並排序文章
-│  │  └─ site.js           # 個人資訊與靜態配置
-│  ├─ App.vue              # 主要組件與 Layout 佈局
-│  └─ main.js              # 應用程式入口點
-├─ index.html              # 主要 HTML 文件
-├─ vite.config.js          # Vite 配置
-└─ package.json            # 相依套件和腳本
+```text
+src/
+├── components/
+│   ├── common/          # 載入狀態、篩選工具等通用 UI
+│   ├── content/         # 內容 renderer 與列表項目
+│   └── layout/          # Layout 級元件
+├── composables/         # 非同步狀態、Repository list、主題與 site cache
+├── content/             # projects.json、writings.json、site.json
+├── domain/              # canonical schema 與 runtime validator
+├── repositories/        # 頁面唯一允許依賴的資料存取介面
+├── router/              # 路由設定
+├── views/               # 路由頁面與頁面組合
+├── App.vue              # 應用程式 shell
+└── main.js              # 啟動與全域設定
+scripts/                 # 內容驗證指令
+tests/                   # Repository contract / schema tests
 ```
 
-## 如何新增文章與專案經歷
+## 開發
 
-本專案高度自動化，您只需要在 `src/content/` 對應的資料夾下新增 Markdown 檔案，頁面便會自動載入、解析並渲染。
+需求：Node.js 20 以上。
 
-### 1. 新增技術文章
-
-在 `src/content/writings/` 資料夾下，新增 `.md` 檔案（例如 `my-new-post.md`），並在頂部加入 Frontmatter：
-
-```markdown
----
-title: 這裡輸入文章標題
-date: 2026-07-21
-category: 效能優化
-status: 已發布
-excerpt: 這裡輸入文章的一句話摘要，會顯示在文章卡片上。
-tags: Laravel, Batch, Performance
----
-
-這裡是文章的 Markdown 內文。
-您可以使用 `## 標題`，或是程式碼區塊等。
+```bash
+npm ci
+npm run dev
 ```
 
-- **status**: 可設為 `已發布`（會以綠色標記）或 `Draft`（會以橘色標記）。
+提交前執行完整檢查：
 
-### 2. 新增專案經歷
-
-在 `src/content/projects/` 資料夾下，新增 `.md` 檔案（例如 `my-new-project.md`），並在頂部加入 Frontmatter：
-
-```markdown
----
-id: 5
-title: 專案名稱
-year: 2026
-category: 全端開發案例
-description: 這裡輸入專案的簡短描述。
-technologies: Vue 3, Laravel, TailwindCSS
-link: https://github.com/your-username/repo-name
----
-
-這裡是專案的詳細介紹。
-您可以寫專案背景、要解決的問題、實作方式與反思。
+```bash
+npm run check
 ```
 
-- **id**: 專案排序依據（數字越小越前面）。
-- **link**: 填入 GitHub 連結或專案連結，詳細頁會自動產生「查看原始碼」按鈕；若不填則不會顯示該按鈕。
+也可分開執行：
 
----
+```bash
+npm run validate:content
+npm test
+npm run build
+```
 
-## 開始使用
+若在 Windows 與 WSL 間切換，請勿共用同一份 `node_modules`；Vite、Rollup、esbuild 與 Tailwind 包含 OS-specific optional packages，應在實際執行的環境重新 `npm ci`。
 
-### 前置需求
+## 維護內容
 
-- [Node.js](https://nodejs.org/) (v16+)
-- npm 或 yarn
+請參考 [JSON 內容維護指南](docs/writing-guide.md)。新增資料後先執行 `npm run validate:content`，確認 schema、唯一性與 URL 安全性。
 
-### 安裝步驟
+## 未來接 API／資料庫
 
-1. 複製儲存庫：
-   ```bash
-   git clone <repository-url>
-   cd kazory-profile
-   ```
+維持現有 Repository method 與回傳 shape，再新增 HTTP adapter：
 
-2. 安裝相依套件：
-   ```bash
-   npm install
-   ```
+- `GET /api/v1/projects`
+- `GET /api/v1/projects/:id`
+- `GET /api/v1/writings`
+- `GET /api/v1/writings/:slug`
+- `GET /api/v1/site`
 
-3. 啟動開發伺服器：
-   ```bash
-   npm run dev
-   ```
-
-4. 建置生產版本：
-   ```bash
-   npm run build
-   ```
-
-## IDE 支援
-
-為獲得最佳開發體驗，我們推薦：
-- [VS Code](https://code.visualstudio.com/) 搭配 [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 擴充功能
-- 若已安裝 Vetur，請停用它
-- 查看 [Vue 文件的擴展指南](https://vuejs.org/guide/scaling-up/tooling.html#ide-support) 了解更多 IDE 建議
-
-## 相關資源
-
-- [Vue 3 文件](https://vuejs.org/)
-- [Script Setup 文件](https://v3.vuejs.org/api/sfc-script-setup.html)
-- [Vite 文件](https://vitejs.dev/)
-- [Vue Router 文件](https://router.vuejs.org/)
-
+列表 API 應回傳 `items`、`total`、`available`、`facets`；詳情才回傳 `content`。資料庫建議將 projects / writings 放主表，tags / technologies 用關聯表，內容 blocks 可先使用 JSON 欄位。公開 API 預設僅回傳 `published`。

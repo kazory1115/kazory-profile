@@ -1,0 +1,95 @@
+[
+  {
+    "id": "1",
+    "slug": "easy-crm",
+    "title": "Easy CRM",
+    "year": 2026,
+    "category": "全端開發案例",
+    "description": "以 Vue 3 + Laravel 12 建立可延伸的 CRM 骨架，聚焦模組切分、API 設計、狀態管理與容器化流程。",
+    "technologies": ["Vue 3", "Vite", "Pinia", "Laravel 12", "Sanctum", "MySQL", "Docker Compose"],
+    "sourceUrl": "https://github.com/kazory1115/easy-crm",
+    "status": "published",
+    "sortOrder": 1,
+    "featuredRank": 1,
+    "content": [
+      { "type": "heading", "level": 2, "text": "專案背景" },
+      { "type": "paragraph", "text": "這個專案的目標不是再完成一套 CRUD demo，而是驗證一套 side project 能否從第一天就具備可延伸的工程結構。除了功能本身，也把權限、模組邊界、README 與啟動流程視為產品的一部分。" },
+      { "type": "heading", "level": 2, "text": "要解決的問題" },
+      { "type": "paragraph", "text": "許多練習專案可以操作，卻很難繼續發展。當報價、庫存、報表等需求加入後，頁面、狀態與 API 很快互相纏繞。" },
+      { "type": "quote", "text": "真正的挑戰不是把 CRM 做出來，而是讓下一個功能進來時，不需要推翻原有結構。" },
+      { "type": "heading", "level": 2, "text": "實作方式" },
+      { "type": "list", "ordered": false, "items": ["前端以 Vue 3、Vite、Pinia 與 Vue Router 分離頁面、狀態與 API 呼叫。", "後端以 Laravel 12 與 Sanctum 管理認證、API route 與資料操作。", "使用 Docker Compose 建立一致的本地環境。", "補齊環境設定、模組說明與常用指令，降低重新接手成本。"] },
+      { "type": "heading", "level": 2, "text": "結果與反思" },
+      { "type": "paragraph", "text": "現有模組可以繼續承接報價、庫存或報表需求。這個案例也確認了一件事：作品集不應只展示畫面，更要能說清楚資料如何流動，以及架構為什麼這樣選。" }
+    ]
+  },
+  {
+    "id": "2",
+    "slug": "codeigniter-3-to-4",
+    "title": "CodeIgniter 3 升級到 CodeIgniter 4",
+    "year": 2026,
+    "category": "系統重構",
+    "description": "把版本升級與責任分層一起處理，重新整理 Controller、Model、Service 與 API 的邊界。",
+    "technologies": ["PHP", "CodeIgniter 3", "CodeIgniter 4", "Service Layer", "RESTful API", "SonarQube"],
+    "sourceUrl": null,
+    "status": "published",
+    "sortOrder": 2,
+    "featuredRank": 2,
+    "content": [
+      { "type": "heading", "level": 2, "text": "專案背景" },
+      { "type": "paragraph", "text": "既有系統真正困難的通常不是框架版本舊，而是流程與相依關係纏在一起。任何需求都可能同時牽動 Controller、Model、view 與共用 helper。" },
+      { "type": "heading", "level": 2, "text": "工程挑戰" },
+      { "type": "paragraph", "text": "升級不能只是搬移檔案。除了 CI3 與 CI4 的框架差異，還要同步處理相依套件、route、既有 API 行為，以及正在運行的業務流程。" },
+      { "type": "heading", "level": 2, "text": "重構策略" },
+      { "type": "list", "ordered": true, "items": ["盤點可以平移與需要重寫的區塊。", "將跨多個 Model 的流程抽到 Service。", "標準化 API response，使前端串接行為穩定。", "透過 SonarQube 找出最容易惡化的技術債。"] },
+      { "type": "heading", "level": 2, "text": "關鍵取捨" },
+      { "type": "paragraph", "text": "Service Layer 不是萬能收納盒。如果沒有 use case 邊界與命名規則，只會從 fat controller 變成 fat service。因此重構的核心不是多一層 class，而是讓責任與 transaction 邊界可被看見。" },
+      { "type": "heading", "level": 2, "text": "結果" },
+      { "type": "paragraph", "text": "升級的價值不只在框架版本更新，更在於讓後續需求的影響範圍重新變得可預期。" }
+    ]
+  },
+  {
+    "id": "3",
+    "slug": "large-export-workflow",
+    "title": "大型匯出流程與 timeout 問題整理",
+    "year": 2026,
+    "category": "效能優化",
+    "description": "將大量資料匯出與壓縮流程拆成可追蹤、可重試的批次處理路徑。",
+    "technologies": ["PHP", "MySQL", "Batch Processing", "Zip", "Large File Export"],
+    "sourceUrl": null,
+    "status": "published",
+    "sortOrder": 3,
+    "featuredRank": 3,
+    "content": [
+      { "type": "heading", "level": 2, "text": "問題背景" },
+      { "type": "paragraph", "text": "匯出功能在資料量小時通常運作正常；當資料逐步累積，一次全撈、大量 join、檔案寫入與壓縮會全部堆在同一個 HTTP request。" },
+      { "type": "heading", "level": 2, "text": "症狀背後的原因" },
+      { "type": "paragraph", "text": "Timeout 只是最後看到的現象，根本原因包含記憶體尖峰、SQL 負載、I/O 阻塞，以及流程缺少可觀測的階段。" },
+      { "type": "heading", "level": 2, "text": "改造方式" },
+      { "type": "list", "ordered": false, "items": ["將查詢改為 chunk / batch，控制單次記憶體用量。", "拆開資料生成、暫存、壓縮與下載。", "重新檢查索引、join 成本與不必要的資料搬運。", "為未來 Queue / Worker 保留明確的切入點。"] },
+      { "type": "heading", "level": 2, "text": "結果與反思" },
+      { "type": "paragraph", "text": "大型匯出不該靠提高 max_execution_time 維持。穩定的流程必須能知道目前做到哪裡、失敗在哪裡，以及能否從中斷的位置重新執行。" }
+    ]
+  },
+  {
+    "id": "4",
+    "slug": "vue-laravel-spa-lab",
+    "title": "Vue 3 + Laravel SPA 實驗場",
+    "year": 2025,
+    "category": "技術實驗",
+    "description": "以小型 SPA 驗證前後端分離、部署自動化與可重複使用的專案骨架。",
+    "technologies": ["Vue 3", "Laravel", "RESTful API", "Docker", "GitHub Actions", "VPS"],
+    "sourceUrl": "https://github.com/kazory1115/web_house",
+    "status": "published",
+    "sortOrder": 4,
+    "featuredRank": null,
+    "content": [
+      { "type": "heading", "level": 2, "text": "為什麼做這個實驗" },
+      { "type": "paragraph", "text": "Side project 是驗證技術細節的低成本環境。這個專案用來確認 Vue 與 Laravel 的協作方式、API 邊界，以及本機到伺服器的部署路徑。" },
+      { "type": "heading", "level": 2, "text": "實作內容" },
+      { "type": "list", "ordered": false, "items": ["建立 Vue 3 與 Laravel API 的基本協作流程。", "使用 Docker 統一本機服務與相依環境。", "透過 GitHub Actions 簡化部署步驟。", "整理可重複使用的設定與文件。"] },
+      { "type": "heading", "level": 2, "text": "收穫" },
+      { "type": "paragraph", "text": "好的骨架不一定複雜，但必須讓人能快速理解、啟動與修改。這決定了 side project 能否從一次性的 demo 演進成可持續維護的系統。" }
+    ]
+  }
+]

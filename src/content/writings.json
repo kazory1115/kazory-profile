@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "service-layer-in-ci-refactor",
+    "title": "CodeIgniter 重構時，Service Layer 要怎麼拆才不會再長歪",
+    "publishedAt": "2026-03-30",
+    "category": "系統重構",
+    "status": "draft",
+    "excerpt": "整理舊專案時，最大的坑通常不是框架版本，而是流程散在 Controller 與 Model。這篇聚焦 Service Layer 的切法與邊界。",
+    "tags": ["CodeIgniter", "Refactoring", "Service Layer"],
+    "readingMinutes": 2,
+    "featuredRank": null,
+    "content": [
+      { "type": "heading", "level": 2, "text": "Problem Statement" },
+      { "type": "paragraph", "text": "很多人說要抽 Service，但如果沒有明確邊界，只是把 Controller 裡的流程搬家，最後只會得到另一個更大的 Service。" },
+      { "type": "quote", "text": "Service 應負責商業流程編排，而不是同時吞下查詢細節、格式轉換、權限判斷與所有例外處理。" },
+      { "type": "heading", "level": 2, "text": "Design Approach" },
+      { "type": "list", "ordered": false, "items": ["找出真正跨 Model、跨流程的商業規則。", "用 use case 命名，例如 CreateQuoteService。", "讓 transaction 邊界由 application service 掌握。", "避免 CommonService、BaseService 這類容易失控的容器。"] },
+      { "type": "heading", "level": 2, "text": "Implementation Notes" },
+      { "type": "paragraph", "text": "Controller 只負責接收輸入與回傳結果，Service 編排流程，Repository 專注資料存取。" },
+      { "type": "code", "language": "php", "code": "$result = $createQuoteService->execute($command);\nreturn $this->respondCreated($result);" },
+      { "type": "paragraph", "text": "這樣拆分的價值不是檔案變多，而是需求變更時能快速判斷應該修改哪一層。" }
+    ]
+  },
+  {
+    "slug": "avoid-timeout-in-large-export",
+    "title": "大型匯出避免 timeout，不是調大時間就好",
+    "publishedAt": "2026-03-22",
+    "category": "效能優化",
+    "status": "published",
+    "excerpt": "大量資料與壓縮檔處理真正要拆的是批次、檔案步驟與流程責任，而不是只調整 PHP 設定。",
+    "tags": ["Batch", "Export", "Performance"],
+    "readingMinutes": 2,
+    "featuredRank": 1,
+    "content": [
+      { "type": "heading", "level": 2, "text": "Root Cause" },
+      { "type": "paragraph", "text": "Timeout 只是症狀，背後通常伴隨一次全撈、大量 join、檔案 I/O 堆疊，以及 request 長時間佔住 worker。" },
+      { "type": "heading", "level": 2, "text": "Recommended Flow" },
+      { "type": "list", "ordered": true, "items": ["查詢資料並依固定大小分批。", "將結果寫入暫存檔。", "完成後再壓縮。", "記錄狀態並提供下載。"] },
+      { "type": "paragraph", "text": "資料量再大一點時，應直接評估 queue / worker，讓每段可觀測、可重試。" },
+      { "type": "heading", "level": 2, "text": "Operational Notes" },
+      { "type": "paragraph", "text": "Windows / Linux 路徑差異、中文檔名與暫存檔清理策略，都應在一開始設計好。批次大小也需要依記憶體尖峰與查詢時間實測。" }
+    ]
+  },
+  {
+    "slug": "sse-vs-websocket-notes",
+    "title": "SSE 與 WebSocket：什麼場景該用哪個",
+    "publishedAt": "2026-03-14",
+    "category": "即時通訊",
+    "status": "published",
+    "excerpt": "如果需求只是伺服器單向更新，SSE 常比 WebSocket 更直接；真正需要雙向互動時再承擔額外複雜度。",
+    "tags": ["SSE", "WebSocket", "Realtime"],
+    "readingMinutes": 2,
+    "featuredRank": 2,
+    "content": [
+      { "type": "heading", "level": 2, "text": "Decision Rule" },
+      { "type": "paragraph", "text": "先確認需求是否真的需要雙向溝通。" },
+      { "type": "table", "headers": ["情境", "建議"], "rows": [["進度、通知、log stream", "SSE"], ["聊天、協作、即時遊戲", "WebSocket"], ["偶爾更新", "Polling 也可能足夠"]] },
+      { "type": "heading", "level": 2, "text": "Trade-offs" },
+      { "type": "paragraph", "text": "WebSocket 更有彈性，但連線管理、狀態同步與重連策略也更複雜。需求沒到那個程度，不需要先把系統做重。" },
+      { "type": "code", "language": "js", "code": "const stream = new EventSource('/events');\nstream.onmessage = ({ data }) => console.log(JSON.parse(data));" },
+      { "type": "heading", "level": 2, "text": "Practical Notes" },
+      { "type": "paragraph", "text": "選型前先寫出事件方向、頻率、資料量與斷線後的期待行為，答案通常就會清楚很多。" }
+    ]
+  },
+  {
+    "slug": "minimum-docker-setup-for-side-projects",
+    "title": "Side project 的 Docker 骨架，我會先準備哪些東西",
+    "publishedAt": "2026-03-02",
+    "category": "開發流程",
+    "status": "published",
+    "excerpt": "Docker 不只是方便啟動，而是讓環境、README 與部署流程有一致基準。",
+    "tags": ["Docker", "DX", "Laravel"],
+    "readingMinutes": 2,
+    "featuredRank": 3,
+    "content": [
+      { "type": "heading", "level": 2, "text": "Minimum Setup" },
+      { "type": "paragraph", "text": "至少要有 app、db、web server 與 env 說明，讓另一個工程師不靠口頭說明也能把專案跑起來。" },
+      { "type": "code", "language": "text", "code": "project/\n├── compose.yaml\n├── .env.example\n├── docker/\n└── README.md" },
+      { "type": "heading", "level": 2, "text": "Why It Matters" },
+      { "type": "paragraph", "text": "很多 side project 不是不能做，而是幾個月後自己都忘了怎麼啟動。沒有一致骨架，作品就很難累積。" },
+      { "type": "heading", "level": 2, "text": "What I Include" },
+      { "type": "list", "ordered": false, "items": ["可直接複製的 .env.example", "ports 與 volume 用途", "啟動、停止、重建與 migration 指令", "最小資料初始化方式", "常見問題與平台差異"] },
+      { "type": "paragraph", "text": "README 不是完成後才補的裝飾，而是開發介面的一部分。" }
+    ]
+  }
+]

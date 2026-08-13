@@ -1,6 +1,11 @@
 <template>
   <div class="page-shell">
 
+    <AsyncState v-if="isLoading" />
+    <AsyncState v-else-if="error" is-error :message="error.message" @retry="reload" />
+
+    <template v-else-if="site">
+
     <!-- Hero Split -->
     <section class="about-hero">
       <div class="section-heading">
@@ -111,11 +116,22 @@
       </article>
     </section>
 
+    </template>
+
   </div>
 </template>
 
 <script setup>
-import { engineeringPrinciples, journey, profile, skillGroups } from '../data/site.js';
+import { computed } from 'vue';
+import AsyncState from '../components/common/AsyncState.vue';
+import { useSiteContent } from '../composables/useSiteContent.js';
+
+const { site, error, isLoading, reload } = useSiteContent();
+
+const profile = computed(() => site.value?.profile ?? {});
+const engineeringPrinciples = computed(() => site.value?.engineeringPrinciples ?? []);
+const journey = computed(() => site.value?.journey ?? []);
+const skillGroups = computed(() => site.value?.skillGroups ?? []);
 </script>
 
 <style scoped>
