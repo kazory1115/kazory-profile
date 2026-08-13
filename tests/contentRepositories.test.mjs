@@ -167,6 +167,28 @@ const siteFixture = {
   navigation: [{ to: '/', text: 'Home' }],
   focusAreas: [{ title: 'Testing', text: 'Contract tests.' }],
   engineeringPrinciples: ['Keep boundaries explicit.'],
+  resume: {
+    workExperience: [
+      {
+        organization: 'Example Company',
+        role: 'Engineer',
+        startDate: '2025-01',
+        endDate: null,
+        summary: 'Builds predictable systems.',
+        highlights: ['Separated domain logic from transport concerns.'],
+        technologies: ['Node.js'],
+      },
+    ],
+    education: [
+      {
+        institution: 'Example University',
+        program: 'Information Systems',
+        startDate: '2020-09',
+        endDate: '2024-06',
+      },
+    ],
+    certifications: [{ name: 'Example Credential', issuer: 'Example Institute' }],
+  },
   journey: [{ period: 'Now', title: 'Testing', description: 'Verifying contracts.' }],
   skillGroups: [{ title: 'Backend', items: ['Node.js'] }],
   githubRepositories: [
@@ -399,12 +421,18 @@ test('site repository returns an asynchronous defensive clone', async () => {
   first.profile.name = 'Mutated';
   first.navigation[0].text = 'Changed';
   first.navigation.push({ to: '/extra', text: 'Extra' });
+  first.resume.workExperience[0].highlights[0] = 'Changed achievement';
 
   const second = await repository.get();
   assert.deepEqual(second, siteFixture);
   assert.notStrictEqual(first, second);
   assert.notStrictEqual(first.profile, second.profile);
   assert.notStrictEqual(first.navigation, second.navigation);
+  assert.notStrictEqual(first.resume, second.resume);
+  assert.notStrictEqual(
+    first.resume.workExperience[0].highlights,
+    second.resume.workExperience[0].highlights,
+  );
 });
 
 test('canonical content validation accepts all six block variants', () => {
@@ -525,6 +553,86 @@ test('site validation rejects unsafe contact links and malformed navigation', ()
   }
 });
 
+test('site validation accepts canonical resume data and rejects malformed career records', () => {
+  assert.doesNotThrow(() => validateSiteContent(siteFixture));
+
+  const invalidResumeSites = [
+    {
+      ...siteFixture,
+      resume: {
+        ...siteFixture.resume,
+        workExperience: [
+          { ...siteFixture.resume.workExperience[0], startDate: '2025/01' },
+        ],
+      },
+    },
+    {
+      ...siteFixture,
+      resume: {
+        ...siteFixture.resume,
+        workExperience: [
+          {
+            ...siteFixture.resume.workExperience[0],
+            startDate: '2025-02',
+            endDate: '2025-01',
+          },
+        ],
+      },
+    },
+    {
+      ...siteFixture,
+      resume: {
+        ...siteFixture.resume,
+        workExperience: [
+          { ...siteFixture.resume.workExperience[0], highlights: [] },
+        ],
+      },
+    },
+    {
+      ...siteFixture,
+      resume: {
+        ...siteFixture.resume,
+        education: [
+          { ...siteFixture.resume.education[0], endDate: '2019-12' },
+        ],
+      },
+    },
+    {
+      ...siteFixture,
+      resume: {
+        ...siteFixture.resume,
+        certifications: [{ name: '   ', issuer: 'Example Institute' }],
+      },
+    },
+    {
+      ...siteFixture,
+      profile: { ...siteFixture.profile, phone: 'not-for-public-content' },
+    },
+  ];
+
+  for (const site of invalidResumeSites) {
+    assert.throws(() => validateSiteContent(site), ContentValidationError);
+  }
+
+  assert.throws(
+    () => validateSiteContent({
+      ...siteFixture,
+      resume: {
+        ...siteFixture.resume,
+        workExperience: [
+          {
+            ...siteFixture.resume.workExperience[0],
+            startDate: '2025-02',
+            endDate: '2025-01',
+          },
+        ],
+      },
+    }),
+    (error) => error instanceof ContentValidationError
+      && error.path === 'site.resume.workExperience[0].endDate',
+  );
+});
+
 test('singleton repositories load and validate the shipped JSON content', async () => {
   const [projects, writings, site] = await Promise.all([
     projectRepository.list(),
@@ -535,4 +643,7 @@ test('singleton repositories load and validate the shipped JSON content', async 
   assert.ok(projects.items.length > 0);
   assert.ok(writings.items.length > 0);
   assert.equal(typeof site.profile.name, 'string');
+  assert.ok(site.resume.workExperience.length > 0);
+  assert.ok(site.resume.education.length > 0);
+  assert.ok(site.resume.certifications.length > 0);
 });

@@ -181,6 +181,21 @@ const assertNullableDate = (value, path) => {
   }
 };
 
+const assertYearMonth = (value, path) => {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}$/.test(value)) {
+    fail(path, 'must use YYYY-MM format');
+  }
+
+  const month = Number(value.slice(5, 7));
+  if (month < 1 || month > 12) {
+    fail(path, 'must contain a valid calendar month');
+  }
+};
+
+const assertNullableYearMonth = (value, path) => {
+  if (value !== null) assertYearMonth(value, path);
+};
+
 const assertJsonSafe = (value, path, ancestors = new WeakSet()) => {
   if (value === null || typeof value === 'string' || typeof value === 'boolean') return;
 
@@ -352,10 +367,7 @@ export const validateWritings = (writings, path = 'writings') => {
   return writings;
 };
 
-/**
- * Validate site data. Profile and navigation are stable entry points; all other
- * JSON-safe static sections remain deliberately extensible.
- */
+/** Validate the strict public site profile, résumé, navigation, and supporting sections. */
 export const validateSiteContent = (site, path = 'site') => {
   assertExactFields(
     site,
@@ -364,6 +376,7 @@ export const validateSiteContent = (site, path = 'site') => {
       'navigation',
       'focusAreas',
       'engineeringPrinciples',
+      'resume',
       'journey',
       'skillGroups',
       'githubRepositories',
@@ -410,6 +423,75 @@ export const validateSiteContent = (site, path = 'site') => {
       site.engineeringPrinciples,
       childPath(path, 'engineeringPrinciples'),
     );
+  }
+
+  {
+    const resumePath = childPath(path, 'resume');
+    assertExactFields(
+      site.resume,
+      ['workExperience', 'education', 'certifications'],
+      resumePath,
+    );
+
+    const workPath = childPath(resumePath, 'workExperience');
+    if (!Array.isArray(site.resume.workExperience)) fail(workPath, 'must be an array');
+    site.resume.workExperience.forEach((item, index) => {
+      const itemPath = childPath(workPath, index);
+      assertExactFields(
+        item,
+        [
+          'organization',
+          'role',
+          'startDate',
+          'endDate',
+          'summary',
+          'highlights',
+          'technologies',
+        ],
+        itemPath,
+      );
+      ['organization', 'role', 'summary'].forEach((field) => {
+        assertNonEmptyString(item[field], childPath(itemPath, field));
+      });
+      assertYearMonth(item.startDate, childPath(itemPath, 'startDate'));
+      assertNullableYearMonth(item.endDate, childPath(itemPath, 'endDate'));
+      if (item.endDate !== null && item.endDate < item.startDate) {
+        fail(childPath(itemPath, 'endDate'), 'must not be earlier than startDate');
+      }
+      assertStringArray(item.highlights, childPath(itemPath, 'highlights'), { nonEmpty: true });
+      assertStringArray(item.technologies, childPath(itemPath, 'technologies'), { nonEmpty: true });
+    });
+
+    const educationPath = childPath(resumePath, 'education');
+    if (!Array.isArray(site.resume.education)) fail(educationPath, 'must be an array');
+    site.resume.education.forEach((item, index) => {
+      const itemPath = childPath(educationPath, index);
+      assertExactFields(
+        item,
+        ['institution', 'program', 'startDate', 'endDate'],
+        itemPath,
+      );
+      ['institution', 'program'].forEach((field) => {
+        assertNonEmptyString(item[field], childPath(itemPath, field));
+      });
+      assertYearMonth(item.startDate, childPath(itemPath, 'startDate'));
+      assertYearMonth(item.endDate, childPath(itemPath, 'endDate'));
+      if (item.endDate < item.startDate) {
+        fail(childPath(itemPath, 'endDate'), 'must not be earlier than startDate');
+      }
+    });
+
+    const certificationsPath = childPath(resumePath, 'certifications');
+    if (!Array.isArray(site.resume.certifications)) {
+      fail(certificationsPath, 'must be an array');
+    }
+    site.resume.certifications.forEach((item, index) => {
+      const itemPath = childPath(certificationsPath, index);
+      assertExactFields(item, ['name', 'issuer'], itemPath);
+      ['name', 'issuer'].forEach((field) => {
+        assertNonEmptyString(item[field], childPath(itemPath, field));
+      });
+    });
   }
 
   {

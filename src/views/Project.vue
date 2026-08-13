@@ -4,8 +4,8 @@
       <p class="eyebrow">專案案例</p>
       <h1>專案與經歷</h1>
       <p class="page-lead">
-        精選專案與實務經驗，涵蓋系統拆分、框架升級、效能調整與開發流程優化。
-        每個項目均完整記錄背景、工程取捨與實作內容。
+        由公開 repositories 與實務經驗整理而成，涵蓋全端系統、架構重構、資料流程、桌面工具與互動應用。
+        每個項目都標明已落地內容、工程取捨與目前邊界。
       </p>
     </section>
 
@@ -61,7 +61,7 @@
       <div class="section-heading">
         <p class="eyebrow">程式碼儲存庫</p>
         <h2>公開專案項目</h2>
-        <p class="page-lead">日常關注的技術主題、開源實作與實驗方向。</p>
+        <p class="page-lead">從公開 repositories 中篩選較完整、可閱讀與可驗證的作品。</p>
       </div>
 
       <AsyncState v-if="siteLoading" />

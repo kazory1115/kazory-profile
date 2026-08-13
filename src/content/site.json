@@ -3,14 +3,14 @@
     "name": "蘇建維",
     "englishName": "Kazory Su",
     "title": "後端工程師",
-    "location": "台灣",
+    "location": "台南，台灣",
     "email": "jay86888688@gmail.com",
     "githubUrl": "https://github.com/kazory1115",
-    "intro": "專注於 PHP 後端、既有系統重構、API 設計與大型資料流程整理，重視分層清晰、可維護性與實作落地。",
+    "intro": "後端導向的全端工程師，專注 PHP 系統重構、RESTful API 與資料流程設計，也持續把產品想法落地為可測試、可部署的應用。",
     "summary": [
-      "主要技術棧為 PHP、CodeIgniter、Laravel、MySQL 與 Vue 3。習慣將 Controller 壓薄，將複雜流程收斂到 Service Layer 或明確的應用層。",
-      "實作經驗涵蓋舊系統重構、CodeIgniter 3 升級到 CodeIgniter 4、RESTful API 拆分、大型匯出流程優化，以及 Docker 化的本地開發流程整理。",
-      "比起追求表面上的功能完成，更重視資料如何流動、邏輯應該落在哪一層，以及需求持續疊加後專案是否仍可維護。"
+      "主要使用 PHP、CodeIgniter、Laravel 與 MySQL 開發及維護 Web 系統，實務上也以 Vue 3、Nuxt 3 與 JavaScript 建構前端功能。",
+      "現職工作涵蓋 CodeIgniter 3 升級至 CodeIgniter 4、Service Layer 拆分、RESTful API、批次匯出流程與 Docker 開發環境；過去亦參與電商與課程平台的功能開發及 API 串接。",
+      "重視既有系統的可維護性、資料流與長時間任務穩定性；公開專案則延伸到 LINE／LIFF 記帳、Python 桌面工具、IndexedDB 原型與 Canvas 互動應用。"
     ]
   },
   "navigation": [
@@ -20,9 +20,9 @@
     { "to": "/writing", "text": "文章" }
   ],
   "focusAreas": [
-    { "title": "舊系統重構", "text": "整理 fat controller、共用邏輯散落與模組邊界不清的舊系統，重新建立可維護的責任分層。" },
-    { "title": "大型資料流程", "text": "面對大量資料匯出、批次處理與長流程操作時，優先考慮 chunk、batch、I/O 與 transaction 邊界。" },
-    { "title": "開發體驗", "text": "透過 Docker、README、部署流程與專案約定整理，降低接手成本與環境不一致問題。" }
+    { "title": "領域與資料模型", "text": "先釐清系統真正要表達的規則，再設計資料結構、API 與不可繞過的領域約束。" },
+    { "title": "模組與一致性", "text": "以 Service、Repository、transaction、lock 與分頁策略處理跨模組流程及資料量成長。" },
+    { "title": "產品化與交付", "text": "從操作體驗延伸到測試、Docker、CI、桌面封裝與 Release，讓成果可以實際驗證與使用。" }
   ],
   "engineeringPrinciples": [
     "Controller 不直接承擔複雜資料流程，商業邏輯應收斂到 Service 或應用層。",
@@ -30,22 +30,74 @@
     "大量資料不做一次全撈，優先考慮 chunk、cursor、batch insert 與索引設計。",
     "每個案例都應能回答問題在哪、為什麼這樣拆、後續如何擴充。"
   ],
+  "resume": {
+    "workExperience": [
+      {
+        "organization": "成創永續股份有限公司",
+        "role": "全端工程師",
+        "startDate": "2025-01",
+        "endDate": null,
+        "summary": "負責既有企業系統的框架升級、資料流程重構、身分整合與即時通訊功能，涵蓋 Microsoft SSO／SCIM、Socket 通知及在線模組統計，並支援 Vue／Nuxt 前端與容器化開發環境。",
+        "highlights": [
+          "負責 CodeIgniter 3 至 CodeIgniter 4 升級與重構，將跨模組流程收斂到 Service Layer，讓責任邊界更清楚。",
+          "將既有 AJAX 資料互動整理為 RESTful API，供 Vue 3／Nuxt 3 前端使用，並調整核心 API 的資料結構與傳輸內容。",
+          "將大量資料匯出與壓縮改為分批處理及狀態追蹤，降低記憶體壓力並改善長時間任務的逾時問題。",
+          "串接 Microsoft SSO 與 SCIM，整合企業身分驗證及使用者資料同步流程。",
+          "將公司通知系統由輪詢改為 Socket 即時推送，降低重複請求並改善通知傳遞效率。",
+          "重新上線既有在線模組，將各模組分散輪詢改為集中式 Socket 架構，建立閱讀在線人數與模組房間 API，搭配主機排程統計平台使用人數；API 與 Socket 公開介面僅允許主機存取，在確保安全性的同時降低 GCP 流量成本。",
+          "導入 SonarQube 進行程式碼品質檢查，並建立 Dockerfile／Docker Compose 多服務開發環境。"
+        ],
+        "technologies": ["PHP", "CodeIgniter 3 / 4", "Laravel", "MySQL", "RESTful API", "Vue 3", "Nuxt 3", "Docker Compose", "SonarQube"]
+      },
+      {
+        "organization": "紅崴科技股份有限公司",
+        "role": "PHP 軟體工程師（實習）",
+        "startDate": "2023-08",
+        "endDate": "2024-07",
+        "summary": "雖為實習職位，實際工作內容與正職工程師相近，期間以 PHP 軟體工程師角色參與既有電商與課程平台的功能開發、活動模組、系統維護及跨系統 API 串接。",
+        "highlights": [
+          "依需求開發新功能與活動模組，並參與既有電商、課程平台的維護與升級。",
+          "使用 AngularJS、PHP、JavaScript 與 CSS 實作前後端功能及資料互動。",
+          "使用 Laravel 開發 API、透過 Postman 測試與除錯，並以 Git 進行多人協作與版本控制。"
+        ],
+        "technologies": ["PHP", "Laravel", "MySQL", "AngularJS", "JavaScript", "CSS", "RESTful API", "Postman", "Git"]
+      }
+    ],
+    "education": [
+      {
+        "institution": "南臺科技大學",
+        "program": "資訊管理學系・四技畢業",
+        "startDate": "2020-09",
+        "endDate": "2024-06"
+      }
+    ],
+    "certifications": [
+      { "name": "網頁編輯製作 Dreamweaver", "issuer": "TQC+" },
+      { "name": "資訊科技 Python（專業級）", "issuer": "TQC-DK" },
+      { "name": "專案管理概論（專業級）", "issuer": "TQC-DK" },
+      { "name": "企業電子化規劃師－企業資源規劃", "issuer": "EEC-EEP" }
+    ]
+  },
   "journey": [
-    { "period": "目前重點", "title": "後端重構、技術整理與可維護性優先", "description": "持續將過去做過的系統與 side project 整理成可閱讀的案例，聚焦 API、資料流、模組邊界與工程決策。" },
+    { "period": "目前重點", "title": "把工程能力整理成可驗證的產品案例", "description": "持續補齊公開專案的問題背景、領域模型、架構取捨、測試結果與交付邊界，讓程式碼與作品說明互相佐證。" },
     { "period": "系統重構", "title": "從既有系統整理出可演進的分層架構", "description": "處理過 CodeIgniter 升級、Service Layer 收斂、API 化與前後端責任切分，目標是降低需求疊加後的維護成本。" },
-    { "period": "個人專案", "title": "透過小型專案驗證架構與部署流程", "description": "使用 Vue 3、Laravel、Docker、SSE、WebSocket 等 side project 驗證實作細節，避免停留在概念層。" }
+    { "period": "公開專案", "title": "從全端系統延伸到桌面工具與互動應用", "description": "使用 Laravel、Vue、Google Apps Script、Python 與原生 Web API 實作 CRM、記帳、檔案平台、AI 去背、內容閱讀器與模擬遊戲。" }
   ],
   "skillGroups": [
-    { "title": "後端開發", "items": ["PHP", "CodeIgniter 3 / 4", "Laravel 12", "RESTful API", "Service Layer", "Repository Pattern"] },
-    { "title": "資料與基礎設施", "items": ["MySQL", "MariaDB", "PostgreSQL", "Docker Compose", "Nginx", "GitHub Actions"] },
-    { "title": "前端與開發工具", "items": ["Vue 3", "Vite", "Pinia", "JavaScript", "DataTables", "Postman", "SonarQube"] }
+    { "title": "後端與架構", "items": ["PHP", "CodeIgniter 3 / 4", "Laravel", "RESTful API", "MVC", "Service Layer", "Repository Pattern"] },
+    { "title": "前端開發", "items": ["JavaScript ES6+", "AJAX", "Vue 3", "Nuxt 3", "AngularJS", "Pinia", "Kendo UI", "DataTables"] },
+    { "title": "資料與交付", "items": ["MySQL", "Docker Compose", "Nginx", "GitHub Actions", "Git", "Postman", "SonarQube"] },
+    { "title": "公開專案延伸", "items": ["TypeScript", "Python", "Google Apps Script", "Google Sheets", "IndexedDB", "Tkinter", "Canvas API"] }
   ],
   "githubRepositories": [
-    { "name": "easy-crm", "language": "PHP", "url": "https://github.com/kazory1115/easy-crm", "note": "CRM side project，強調模組切分、API 設計與 Docker 化流程。" },
-    { "name": "simple-websocket-server", "language": "JavaScript", "url": "https://github.com/kazory1115/simple-websocket-server", "note": "以最小範例驗證 WebSocket 溝通流程與事件傳遞。" },
-    { "name": "chat_sse_demo", "language": "HTML", "url": "https://github.com/kazory1115/chat_sse_demo", "note": "用小型 demo 驗證 SSE 的實際使用場景。" },
-    { "name": "LaravelDocker", "language": "Dockerfile", "url": "https://github.com/kazory1115/LaravelDocker", "note": "Laravel + Docker 開發骨架，偏向本地開發體驗整理。" },
-    { "name": "quote_project", "language": "Vue", "url": "https://github.com/kazory1115/quote_project", "note": "Vue 專案實作，主要觀察元件結構與資料互動方式。" },
-    { "name": "stock_tool", "language": "Python", "url": "https://github.com/kazory1115/stock_tool", "note": "用 Python 寫的小工具，用來驗證資料整理流程。" }
+    { "name": "line-ledger", "language": "JavaScript", "url": "https://github.com/kazory1115/line-ledger", "note": "LINE Bot、Apps Script JSON API 與 Vue LIFF 組成的帳戶制記帳系統。" },
+    { "name": "easy-crm", "language": "PHP", "url": "https://github.com/kazory1115/easy-crm", "note": "Vue 3 + Laravel 12 CRM MVP，涵蓋報價、訂單、客戶、庫存與報表。" },
+    { "name": "png-factory", "language": "Python", "url": "https://github.com/kazory1115/png-factory", "note": "結合 rembg、可逆遮罩筆刷與 GrabCut 精修的 Windows AI 去背工具。" },
+    { "name": "flie-site", "language": "PHP", "url": "https://github.com/kazory1115/flie-site", "note": "Laravel + Inertia 多使用者檔案平台，實作 quota、搜尋排序與混合分頁。" },
+    { "name": "web_quotation", "language": "Vue", "url": "https://github.com/kazory1115/web_quotation", "note": "以 Pinia、Dexie 與 IndexedDB 建立的報價管理前端原型。" },
+    { "name": "life-lineage", "language": "HTML", "url": "https://github.com/kazory1115/life-lineage", "note": "零相依的手機人生模擬器，具備動態 Canvas 家族樹與跨世代系統。" },
+    { "name": "novel", "language": "JavaScript", "url": "https://github.com/kazory1115/novel", "note": "Markdown 驅動的長篇小說閱讀器與 GitHub Pages 發布流程。" },
+    { "name": "mdViewer", "language": "Python", "url": "https://github.com/kazory1115/mdViewer", "note": "支援 GFM、多分頁拖放、多編碼與 Windows 檔案關聯的桌面閱讀器。" },
+    { "name": "yt-dlp-desktop", "language": "Python", "url": "https://github.com/kazory1115/yt-dlp-desktop", "note": "封裝格式策略、FFmpeg fallback 與即時進度回報的 Windows 下載 GUI。" }
   ]
 }
