@@ -6,11 +6,11 @@
     "location": "台南，台灣",
     "email": "jay86888688@gmail.com",
     "githubUrl": "https://github.com/kazory1115",
-    "intro": "後端導向的全端工程師，專注 PHP 系統重構、RESTful API 與資料流程設計，也持續把產品想法落地為可測試、可部署的應用。",
+    "intro": "具全端開發經驗，專注後端系統設計、API、資料流程與既有系統重構，重視資料一致性、效能與可測試、可部署的交付。",
     "summary": [
-      "主要使用 PHP、CodeIgniter、Laravel 與 MySQL 開發及維護 Web 系統，實務上也以 Vue 3、Nuxt 3 與 JavaScript 建構前端功能。",
-      "現職工作涵蓋 CodeIgniter 3 升級至 CodeIgniter 4、Service Layer 拆分、RESTful API、批次匯出流程與 Docker 開發環境；過去亦參與電商與課程平台的功能開發及 API 串接。",
-      "重視既有系統的可維護性、資料流與長時間任務穩定性；公開專案則延伸到 LINE／LIFF 記帳、Python 桌面工具、IndexedDB 原型與 Canvas 互動應用。"
+      "具備 Web 後端開發與既有系統維護經驗，能獨立從需求分析、資料模型、API 設計到測試與部署，完成跨模組功能。",
+      "現職主要以 PHP 與 CodeIgniter 3 / 4 處理框架升級、Service Layer 拆分、RESTful API、批次匯出、身分整合與即時通訊；過去亦主導 Laravel API 建置與平台功能開發。",
+      "重視可維護架構、資料一致性與長時間任務穩定性，並透過公開專案持續累積不同語言、框架與部署環境的實作經驗。"
     ]
   },
   "navigation": [
@@ -37,28 +37,30 @@
         "role": "全端工程師",
         "startDate": "2025-01",
         "endDate": null,
-        "summary": "負責既有企業系統的框架升級、資料流程重構、身分整合與即時通訊功能，涵蓋 Microsoft SSO／SCIM、Socket 通知及在線模組統計，並支援 Vue／Nuxt 前端與容器化開發環境。",
+        "summary": "獨立負責既有企業系統的框架升級、資料流程重構、身分整合與即時通訊功能，涵蓋 Microsoft SSO／SCIM、Socket 通知及在線模組統計，並支援 Vue／Nuxt 前端與容器化開發環境。",
         "highlights": [
-          "負責 CodeIgniter 3 至 CodeIgniter 4 升級與重構，將跨模組流程收斂到 Service Layer，讓責任邊界更清楚。",
-          "將既有 AJAX 資料互動整理為 RESTful API，供 Vue 3／Nuxt 3 前端使用，並調整核心 API 的資料結構與傳輸內容。",
-          "將大量資料匯出與壓縮改為分批處理及狀態追蹤，降低記憶體壓力並改善長時間任務的逾時問題。",
-          "串接 Microsoft SSO 與 SCIM，整合企業身分驗證及使用者資料同步流程。",
-          "將公司通知系統由輪詢改為 Socket 即時推送，降低重複請求並改善通知傳遞效率。",
-          "重新上線既有在線模組，將各模組分散輪詢改為集中式 Socket 架構，建立閱讀在線人數與模組房間 API，搭配主機排程統計平台使用人數；API 與 Socket 公開介面僅允許主機存取，在確保安全性的同時降低 GCP 流量成本。",
+          "主導 CodeIgniter 3 至 CodeIgniter 4 升級與重構，將跨模組流程收斂到 Service Layer，讓責任邊界更清楚。",
+          "設計並完成既有 AJAX 資料互動的 RESTful API 化，供 Vue 3／Nuxt 3 前端使用，並調整核心 API 的資料結構與傳輸內容。",
+          "針對 PHP 直接執行大型資料打包造成的記憶體爆量問題，設計並改由程式預先定義的 exec 指令觸發 Linux 壓縮，曾處理約 2GB 的打包檔。",
+          "設計 JSON 狀態檔與前端輪詢流程回報打包進度及錯誤，完成後才呼叫下載 API；搭配產物清理排程，降低多人打包時的 PHP 負荷與失敗情況。",
+          "設計並建立資料庫驅動的任務佇列，將郵件發送與大量資料匹配等非同步任務寫入資料表，由 Linux 排程觸發 CLI Command 依任務類型執行，避免在同步 API 中直接處理長時間工作。",
+          "完成 Microsoft SSO 與 SCIM 整合，處理企業身分驗證及使用者資料同步流程。",
+          "將每頁至少 3 次、複雜頁面可能超過 10 次的通知輪詢，設計為僅在通知事件觸發時透過 Socket 推送，避免無效通知查詢與重複請求，並支援在線人數統計需求。",
+          "重新設計並上線既有在線模組，將各模組分散輪詢改為集中式 Socket 架構，建立閱讀在線人數與模組房間 API，搭配主機排程統計平台使用人數；API 與 Socket 公開介面僅允許主機存取，在確保安全性的同時降低 GCP 流量成本。",
           "導入 SonarQube 進行程式碼品質檢查，並建立 Dockerfile／Docker Compose 多服務開發環境。"
         ],
-        "technologies": ["PHP", "CodeIgniter 3 / 4", "Laravel", "MySQL", "RESTful API", "Vue 3", "Nuxt 3", "Docker Compose", "SonarQube"]
+        "technologies": ["PHP", "CodeIgniter 3 / 4", "Laravel", "MySQL", "Linux", "Cron", "RESTful API", "Vue 3", "Nuxt 3", "Docker Compose", "SonarQube"]
       },
       {
         "organization": "紅崴科技股份有限公司",
         "role": "PHP 軟體工程師（實習）",
         "startDate": "2023-08",
         "endDate": "2024-07",
-        "summary": "雖為實習職位，實際工作內容與正職工程師相近，期間以 PHP 軟體工程師角色參與既有電商與課程平台的功能開發、活動模組、系統維護及跨系統 API 串接。",
+        "summary": "以 PHP 軟體工程師角色獨立完成既有電商與課程平台的功能開發、活動模組、系統維護及跨系統 API 串接。",
         "highlights": [
-          "依需求開發新功能與活動模組，並參與既有電商、課程平台的維護與升級。",
-          "使用 AngularJS、PHP、JavaScript 與 CSS 實作前後端功能及資料互動。",
-          "使用 Laravel 開發 API、透過 Postman 測試與除錯，並以 Git 進行多人協作與版本控制。"
+          "依需求獨立完成新功能與活動模組，並負責既有電商、課程平台的維護與升級。",
+          "使用 AngularJS、PHP、JavaScript 與 CSS 完成前後端功能及資料互動。",
+          "主導 Laravel API 建置，透過 Postman 測試與除錯，並以 Git 進行多人協作與版本控制。"
         ],
         "technologies": ["PHP", "Laravel", "MySQL", "AngularJS", "JavaScript", "CSS", "RESTful API", "Postman", "Git"]
       }
@@ -84,10 +86,10 @@
     { "period": "公開專案", "title": "從全端系統延伸到桌面工具與互動應用", "description": "使用 Laravel、Vue、Google Apps Script、Python 與原生 Web API 實作 CRM、記帳、檔案平台、AI 去背、內容閱讀器與模擬遊戲。" }
   ],
   "skillGroups": [
-    { "title": "後端與架構", "items": ["PHP", "CodeIgniter 3 / 4", "Laravel", "RESTful API", "MVC", "Service Layer", "Repository Pattern"] },
-    { "title": "前端開發", "items": ["JavaScript ES6+", "AJAX", "Vue 3", "Nuxt 3", "AngularJS", "Pinia", "Kendo UI", "DataTables"] },
-    { "title": "資料與交付", "items": ["MySQL", "Docker Compose", "Nginx", "GitHub Actions", "Git", "Postman", "SonarQube"] },
-    { "title": "公開專案延伸", "items": ["TypeScript", "Python", "Google Apps Script", "Google Sheets", "IndexedDB", "Tkinter", "Canvas API"] }
+    { "title": "後端工程能力", "items": ["API Design", "Domain Modeling", "Data Consistency", "Service Layer", "Repository Pattern", "Transaction", "Batch Processing", "Database-backed Task Queue", "Authentication / Authorization", "Real-time Communication"] },
+    { "title": "目前實務技術", "items": ["PHP", "CodeIgniter 3 / 4", "MySQL", "RESTful API"] },
+    { "title": "工具與品質", "items": ["Docker Compose", "Nginx", "Git", "Postman", "SonarQube", "GitHub Actions", "PHPUnit / Feature Test"] },
+    { "title": "其他框架與公開專案", "items": ["Laravel", "JavaScript ES6+", "Vue 3", "Nuxt 3", "AngularJS", "Pinia", "Kendo UI", "DataTables", "TypeScript", "Python", "Google Apps Script", "Google Sheets", "IndexedDB", "Tkinter", "Canvas API"] }
   ],
   "githubRepositories": [
     { "name": "line-ledger", "language": "JavaScript", "url": "https://github.com/kazory1115/line-ledger", "note": "LINE Bot、Apps Script JSON API 與 Vue LIFF 組成的帳戶制記帳系統。" },

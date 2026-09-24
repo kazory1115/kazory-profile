@@ -18,7 +18,7 @@
         <p class="eyebrow">個人摘要</p>
         <div class="summary-list">
           <div class="summary-list__item">
-            <span>職務</span>
+            <span>求職方向</span>
             <strong>{{ profile.title }} / {{ profile.location }}</strong>
           </div>
           <div v-if="currentExperience" class="summary-list__item">
@@ -26,8 +26,8 @@
             <strong>{{ currentExperience.organization }}・{{ currentExperience.role }}</strong>
           </div>
           <div class="summary-list__item">
-            <span>主要技術</span>
-            <strong>PHP, CodeIgniter, Laravel, MySQL, Vue / Nuxt</strong>
+            <span>核心能力</span>
+            <strong>API 設計、資料模型、系統重構、測試與部署</strong>
           </div>
           <div class="summary-list__item">
             <span>關注領域</span>

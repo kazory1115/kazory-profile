@@ -110,22 +110,22 @@
   {
     "id": "3",
     "slug": "large-export-workflow",
-    "title": "大型匯出流程與 timeout 問題整理",
+    "title": "大型匯出與約 2GB 資料打包流程",
     "year": 2026,
     "category": "效能優化",
-    "description": "將大量資料匯出與壓縮流程拆成可追蹤、可重試的批次處理路徑。",
-    "technologies": ["PHP", "MySQL", "Batch Processing", "Zip", "Large File Export"],
+    "description": "將 PHP 直接壓縮造成的記憶體爆量，改為由 PHP 觸發 Linux 壓縮指令；伺服器以 JSON 狀態檔回報進度，前端輪詢狀態，完成後再呼叫下載 API，曾處理約 2GB 的打包檔。",
+    "technologies": ["PHP", "MySQL", "Linux", "Shell Command", "Batch Processing", "Zip", "Large File Export"],
     "sourceUrl": null,
     "status": "published",
     "sortOrder": 6,
     "featuredRank": null,
     "content": [
       { "type": "heading", "level": 2, "text": "問題背景" },
-      { "type": "paragraph", "text": "匯出功能在資料量小時通常運作正常；當資料逐步累積，一次全撈、大量 join、檔案寫入與壓縮會全部堆在同一個 HTTP request。" },
+      { "type": "paragraph", "text": "原本由 PHP 在單一 API 內完成資料讀取、檔案寫入與壓縮；當實際打包檔案約達 2GB 時，PHP 記憶體爆量，且 HTTP request 需要長時間保持。" },
       { "type": "heading", "level": 2, "text": "症狀背後的原因" },
       { "type": "paragraph", "text": "Timeout 只是最後看到的現象，根本原因包含記憶體尖峰、SQL 負載、I/O 阻塞，以及流程缺少可觀測的階段。" },
       { "type": "heading", "level": 2, "text": "改造方式" },
-      { "type": "list", "ordered": false, "items": ["將查詢改為 chunk／batch，控制單次記憶體用量。", "拆開資料生成、暫存、壓縮與下載。", "重新檢查索引、join 成本與不必要的資料搬運。", "為未來 Queue／Worker 保留明確的切入點。"] },
+      { "type": "list", "ordered": false, "items": ["PHP 建立打包任務，透過程式預先定義的 exec 指令觸發 Linux 壓縮，使用者輸入不參與指令組合，避免命令注入。", "伺服器持續產出 JSON 狀態檔，記錄處理進度、完成狀態與失敗訊息；狀態檔僅提供內部網址存取。", "前端不等待單次 API 完成，改以輪詢狀態更新畫面，壓縮完成後才呼叫下載 API，失敗時由狀態 API 回報錯誤原因。", "打包成功後刪除狀態檔，Zip 產物由每日排程清除；將資料生成、暫存、壓縮與下載拆開，降低 PHP 記憶體壓力與多人打包時的失敗情況。"] },
       { "type": "heading", "level": 2, "text": "結果與反思" },
       { "type": "paragraph", "text": "大型匯出不該靠提高 max_execution_time 維持。穩定的流程必須能知道目前做到哪裡、失敗在哪裡，以及能否從中斷的位置重新執行。" }
     ]
